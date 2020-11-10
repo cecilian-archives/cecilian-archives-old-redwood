@@ -1,0 +1,4 @@
+# Prisma Migrate lockfile v1
+
+20201110064634-base-schema
+20201110065147-relation-name-tweaks

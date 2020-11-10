@@ -1,6 +1,6 @@
 datasource DS {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -8,19 +8,18 @@ generator client {
   binaryTargets = ["native", "rhel-openssl-1.0.x"]
 }
 
-// ---------------------------------------------------------
-//
-//  CECILIAN ARCHIVE
-//  Database Schema
-//  --BAG 10 November 2020
-//
+// Slug generation function:
+// Math.random().toString(36).substring(2, 12).toLowerCase()
+// A 10-character slug allows 8.5M random generations
+// before having a 1% chance of collision
+// (by analysis of the birthday problem).
+
 ///
 /// "Archiving is as much about pruning the hedge
 /// as it is about making sure it grows properly."
 /// -- Robyn Hunter
 ///    12 January 2020
 ///
-// ---------------------------------------------------------
 
 
 // ---------------------------------------------------------
@@ -32,7 +31,7 @@ generator client {
 model User {
   id                   Int        @id @default(autoincrement())
   slug                 String     @unique // The user's ID in Auth0
-  profile              UserProfile? @relation("ProfileOwner")
+  profile              UserProfile?
   accessKey            AccessKey? @relation("AccessKeyOwner")
   verifiedByKey        AccessKey  @relation("AccessKeyUser", fields: [verifiedByKeyId], references: [id])
   verifiedByKeyId      Int
@@ -62,7 +61,7 @@ model UserProfile {
   firstNames     String?
   lastNames      String?
   otherNames     String[]
-  contactDetails UserContact[]
+  contactDetails UserContact[] @relation("UserContacts")
   anniversary60  Anniversary60Profile? @relation("Profile60th")
   visibility     Visibility @default(VISIBLE)
   createdAt      DateTime   @default(now())
@@ -76,7 +75,7 @@ enum Visibility {
 
 model UserContact {
   id            Int          @id @default(autoincrement())
-  user          User         @relation(fields: [userId], references: [id])
+  user          User         @relation("UserContacts", fields: [userId], references: [id])
   userId        Int
   type          UserContactType
   customType    String?
