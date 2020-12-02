@@ -1,0 +1,6 @@
+# Prisma Migrate lockfile v1
+
+20201202065804-base-schema
+20201202070448-allow-multiple-access-keys-on-profile
+20201202071824-make-role-names-unique
+20201202102936-remove-logentries-model

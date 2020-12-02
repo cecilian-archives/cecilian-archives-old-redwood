@@ -7,8 +7,11 @@
 
 [web]
   port = 8910
+  experimentalFastRefresh = true
   apiProxyPath = "/.redwood/functions"
+  includeEnvironmentVariables = ["AUTH0_DOMAIN", "AUTH0_CLIENT_ID", "AUTH0_REDIRECT_URI", "AUTH0_AUDIENCE"]
 [api]
   port = 8911
+  schemaPath = "./api/db/schema.prisma"
 [browser]
   open = true

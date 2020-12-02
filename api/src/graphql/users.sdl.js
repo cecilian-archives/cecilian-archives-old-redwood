@@ -26,9 +26,7 @@ export const schema = gql`
   }
 
   input CreateUserInput {
-    slug: String!
-    verifiedByKeyId: Int!
-    deletedAt: DateTime
+    key: String!
   }
 
   input UpdateUserInput {

@@ -1,0 +1,62 @@
+/*
+* This file is used to prebuild euiInterface.css, which is then included in index.js
+* This prevents a massive wait on each restart of the dev server.
+* If you make changes here, run
+* `yarn sass web/src/euiInterface.scss web/src/euiInterface.css`
+* to regenerate.
+*/
+
+// Core
+$euiColorPrimary: #2872af;
+$euiColorSecondary: #ffc71e;
+$euiColorAccent: #ffc71e;
+
+// Status
+$euiColorSuccess: #448147;
+$euiColorWarning: #ff871e;
+$euiColorDanger: #af284c;
+
+// Grays
+// generated from Primary with https://palx.jxnblk.com/
+$euiColorEmptyShade: #ffffff;
+$euiColorLightestShade: #f9f9fa;
+$euiColorLightShade: #dee1e4;
+$euiColorMediumShade: #97a1a9;
+$euiColorDarkShade: #5f6e7a;
+$euiColorDarkestShade: #384047;
+$euiColorFullShade: #000000;
+
+// Backgrounds
+$euiPageBackgroundColor: $euiColorLightestShade;
+$euiColorHighlight: tint($euiColorAccent, 50%);
+
+// Typography
+$euiFontSize: 18px; // 16px
+$euiFontSizeXS: 14px; // 12px
+$euiFontSizeS: 16px; // 14px
+$euiFontSizeM: 20px; // 18px
+$euiFontSizeL: 24px; // 20px
+$euiFontSizeXL: 32px; // 28px
+$euiFontSizeXXL: 36px; // 36px
+
+@import url("https://fonts.googleapis.com/css2?family=Brawler&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&subset=latin,latin-ext&display=swap");
+
+$euiFontFamily: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+  Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+@import "../../node_modules/@elastic/eui/src/global_styling/functions/index";
+@import "../../node_modules/@elastic/eui/src/global_styling/variables/index";
+@import "../../node_modules/@elastic/eui/src/global_styling/mixins/index";
+@import "../../node_modules/@elastic/eui/src/theme_light.scss";
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Brawler", "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}

@@ -11,6 +11,12 @@ export const accessKey = ({ id }) => {
   });
 };
 
+export const accessKeyByKey = ({ key }) => {
+  return db.accessKey.findOne({
+    where: { key },
+  });
+};
+
 export const createAccessKey = ({ input }) => {
   return db.accessKey.create({
     data: foreignKeyReplacement(input),
