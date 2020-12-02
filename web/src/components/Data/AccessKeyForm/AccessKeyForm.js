@@ -55,22 +55,6 @@ const AccessKeyForm = (props) => {
         />
         <FieldError name="ownerId" className="rw-field-error" />
 
-        <Label
-          name="removedAt"
-          className="rw-label"
-          errorClassName="rw-label rw-label-error"
-        >
-          Removed at
-        </Label>
-        <TextField
-          name="removedAt"
-          defaultValue={props.accessKey?.removedAt}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
-        <FieldError name="removedAt" className="rw-field-error" />
-
         <div className="rw-button-group">
           <Submit disabled={props.loading} className="rw-button rw-button-blue">
             Save

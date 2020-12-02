@@ -2,8 +2,8 @@ export const schema = gql`
   type AccessKey {
     id: Int!
     key: String!
-    owner: User!
-    ownerId: Int!
+    owner: User
+    ownerId: Int
     usedBy: [User]!
     createdAt: DateTime!
     updatedAt: DateTime!
@@ -17,14 +17,12 @@ export const schema = gql`
 
   input CreateAccessKeyInput {
     key: String!
-    ownerId: Int!
-    removedAt: DateTime
+    ownerId: Int
   }
 
   input UpdateAccessKeyInput {
     key: String
     ownerId: Int
-    removedAt: DateTime
   }
 
   type Mutation {
