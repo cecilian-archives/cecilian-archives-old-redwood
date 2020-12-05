@@ -1,7 +1,6 @@
 import { EuiText, EuiButton, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { transparentize } from "polished";
 import libraryImage from "src/assets/images/unsplash-PkbZahEG2Ng.jpg";
 import Logo from "src/assets/svg/logo.svg";
 
@@ -42,13 +41,7 @@ const HomeHero = ({ handleReadMoreClick, handleGetStartedClick }) => {
 const HeroContainer = styled.div`
   width: 100vw;
   min-height: 100vh;
-  background: linear-gradient(
-      ${({ theme }) => {
-        const base = transparentize(0.07, theme.archiveBaseColours.deepBlue);
-        const top = transparentize(0.25, theme.archiveBaseColours.deepBlue);
-        return `to top, ${base}, ${top}`;
-      }}
-    ),
+  background: ${({ theme }) => theme.archive.blueScreenGradient(theme)},
     url(${libraryImage});
   background-position: center;
   background-repeat: no-repeat;
@@ -58,14 +51,15 @@ const HeroContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: ${({ theme }) => theme.paddingSizes.xl};
-  border-bottom: 2vh solid
-    ${({ theme }) => theme.archiveBaseColours.brightYellow};
+  border-bottom: 2vh solid ${({ theme }) => theme.archive.brightYellow};
 `;
 
 const SizedLogo = styled(Logo)`
   width: auto;
   max-width: 60px;
   max-height: 60px;
+  border: 1px solid ${({ theme }) => theme.archive.blueShades[105]};
+  border-radius: 10px;
 `;
 
 const Welcome = styled(EuiText)`
@@ -80,8 +74,7 @@ const Welcome = styled(EuiText)`
     color: ${({ theme }) => theme.euiColorGhost};
     font-size: 2.5rem;
     line-height: 4rem;
-    border-bottom: 1px solid
-      ${({ theme }) => theme.archiveBaseColours.brightYellow};
+    border-bottom: 1px solid ${({ theme }) => theme.archive.brightYellow};
   }
 `;
 

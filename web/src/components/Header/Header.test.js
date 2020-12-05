@@ -1,11 +1,11 @@
 import { render } from "@redwoodjs/testing";
 
-import AuthLayout from "./AuthLayout";
+import Header from "./Header";
 
-describe("AuthLayout", () => {
+describe("Header", () => {
   it("renders successfully", () => {
     expect(() => {
-      render(<AuthLayout />);
+      render(<Header />);
     }).not.toThrow();
   });
 });
