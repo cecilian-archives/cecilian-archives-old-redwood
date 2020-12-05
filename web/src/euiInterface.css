@@ -16744,6 +16744,10 @@ button.euiLink {
   text-align: center;
 }
 
+html {
+  letter-spacing: normal;
+}
+
 h1,
 h2,
 h3,

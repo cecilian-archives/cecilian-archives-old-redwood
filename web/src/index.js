@@ -7,7 +7,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import { store, persistor } from "./ducks/";
 import { PersistGate } from "redux-persist/integration/react";
 import { ThemeProvider } from "styled-components";
-import { archiveBaseColours } from "./theme";
+import { archive } from "./theme";
 import * as euiVars from "@elastic/eui/dist/eui_theme_light.json";
 
 import Routes from "src/Routes";
@@ -31,7 +31,7 @@ ReactDOM.render(
   <FatalErrorBoundary page={FatalErrorPage}>
     <ReduxProvider store={store}>
       <AuthProvider client={auth0} type="auth0">
-        <ThemeProvider theme={{ archiveBaseColours, ...euiVars.default }}>
+        <ThemeProvider theme={{ archive, ...euiVars.default }}>
           <RedwoodProvider>
             <PersistGate loading={null} persistor={persistor}>
               <Routes />

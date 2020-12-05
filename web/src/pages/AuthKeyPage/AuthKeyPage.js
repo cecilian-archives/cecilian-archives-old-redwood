@@ -1,8 +1,7 @@
 import { Redirect, routes } from "@redwoodjs/router";
 import { useAuth } from "@redwoodjs/auth";
 import styled from "styled-components";
-import AuthLayout from "src/layouts/AuthLayout/AuthLayout";
-import LoadingScreen from "src/components/LoadingScreen/LoadingScreen";
+import PageLayout from "src/layouts/PageLayout/PageLayout";
 import {
   EuiTitle,
   EuiText,
@@ -25,11 +24,10 @@ const CREATE_USER = gql`
 `;
 
 const AuthKeyPage = () => {
-  const { loading: authLoading, currentUser, reauthenticate } = useAuth();
+  const { currentUser, reauthenticate } = useAuth();
   const [createUser, { loading, error }] = useMutation(CREATE_USER);
   const [enteredKey, setEnteredKey] = useState("");
 
-  if (authLoading) return <LoadingScreen />;
   if (currentUser?.slug) return <Redirect to={routes.myProfile()} />;
 
   const handleEnterClick = async () => {
@@ -40,7 +38,7 @@ const AuthKeyPage = () => {
   };
 
   return (
-    <AuthLayout>
+    <PageLayout minimalChrome>
       <EuiTitle>
         <h1>Enter Your Key</h1>
       </EuiTitle>
@@ -73,7 +71,7 @@ const AuthKeyPage = () => {
           Enter
         </EuiButton>
       </FormWrapper>
-    </AuthLayout>
+    </PageLayout>
   );
 };
 
