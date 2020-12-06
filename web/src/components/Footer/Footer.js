@@ -75,6 +75,12 @@ const Logo = styled.img`
   border: 1px solid ${({ theme }) => theme.archive.brightYellow};
   border-radius: ${({ theme }) => theme.euiBorderRadius};
   margin-left: ${({ theme }) => theme.euiSizeS};
+  transition: transform 0.3s ease-in-out 0s;
+  transform-origin: bottom;
+  &:hover,
+  &:focus {
+    transform: translateX(-25%) scale(3);
+  }
 `;
 
 export default Footer;

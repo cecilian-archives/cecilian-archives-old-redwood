@@ -106,6 +106,9 @@ export const getCurrentUser = async (decoded) => {
       slug: true,
       subject: true,
       roles: true,
+      profile: {
+        select: { firstNames: true, lastNames: true, picture: true },
+      },
     },
   });
   if (!currentUser) return decoded;
@@ -113,6 +116,7 @@ export const getCurrentUser = async (decoded) => {
     slug: currentUser.slug,
     subject: currentUser.subject,
     roles: currentUser.roles.map((role) => role.roleName),
+    profile: currentUser.profile,
     jwt: {
       ...decoded,
       ...parseJWT({

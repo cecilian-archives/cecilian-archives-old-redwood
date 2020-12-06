@@ -13,6 +13,7 @@ import {
 import { ImKey } from "react-icons/im";
 import { useMutation } from "@redwoodjs/web";
 import { useState } from "react";
+import LoadingScreen from "src/components/LoadingScreen/LoadingScreen";
 
 const CREATE_USER = gql`
   mutation createUserWithKey($input: CreateUserInput!) {
@@ -24,15 +25,28 @@ const CREATE_USER = gql`
 `;
 
 const AuthKeyPage = () => {
-  const { currentUser, reauthenticate } = useAuth();
+  const { currentUser, userMetadata, reauthenticate } = useAuth();
   const [createUser, { loading, error }] = useMutation(CREATE_USER);
   const [enteredKey, setEnteredKey] = useState("");
 
-  if (currentUser?.slug) return <Redirect to={routes.myProfile()} />;
+  if (currentUser?.slug)
+    return (
+      <>
+        <LoadingScreen />
+        <Redirect to={routes.myProfile()} />
+      </>
+    );
 
   const handleEnterClick = async () => {
     await createUser({
-      variables: { input: { key: enteredKey?.trim() } },
+      variables: {
+        input: {
+          key: enteredKey?.trim(),
+          firstNames: userMetadata.given_name,
+          lastNames: userMetadata.family_name,
+          picture: userMetadata.picture,
+        },
+      },
     });
     await reauthenticate();
   };

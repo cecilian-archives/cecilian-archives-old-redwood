@@ -7,10 +7,9 @@ import Header from "src/components/Header/Header";
 import Footer from "src/components/Footer/Footer";
 
 const ChromeLayout = ({ children, minimal = false }) => {
-  const { loading: authLoading, currentUser } = useAuth();
+  const { loading: authLoading } = useAuth();
   const { loading: pageLoading } = usePageLoadingContext();
   if (authLoading) return <LoadingScreen />;
-  console.log(currentUser);
 
   return (
     <>
