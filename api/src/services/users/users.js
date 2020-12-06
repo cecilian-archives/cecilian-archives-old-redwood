@@ -24,7 +24,7 @@ export const userBySubject = ({ subject }) => {
 export const createUser = async ({ input }) => {
   requireAuth();
   const subject = context.currentUser.sub || context.currentUser.jwt.sub;
-  const key = input.key;
+  const { key, firstNames, lastNames, picture } = input;
 
   const checkUser = await userBySubject({ subject });
   if (checkUser) {
@@ -59,7 +59,13 @@ export const createUser = async ({ input }) => {
       subject,
       slug: generateSlug(),
       verifiedByKey: { connect: { id: foundKey.id } },
-      profile: { create: {} },
+      profile: {
+        create: {
+          firstNames,
+          lastNames,
+          picture,
+        },
+      },
       roles: {
         connectOrCreate: {
           where: { roleName: "verifiedCecilian" },

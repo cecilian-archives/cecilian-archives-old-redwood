@@ -78,8 +78,8 @@ const HeaderAppMenu = () => {
 };
 
 const HeaderButton = styled(EuiHeaderSectionItemButton)`
-  height: 50px;
-  min-width: 50px;
+  height: 60px;
+  min-width: 60px;
   &:hover,
   &:focus {
     background: ${({ theme }) => theme.archive.blueShades[93]};

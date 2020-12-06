@@ -28,14 +28,11 @@ const Header = ({ minimal = false }) => {
           />
         </EuiHeaderSectionItem>
       </EuiHeaderSection>
-
-      {!minimal && (
-        <EuiHeaderSection side="right">
-          <EuiHeaderSectionItem>
-            <HeaderUserMenu />
-          </EuiHeaderSectionItem>
-        </EuiHeaderSection>
-      )}
+      <EuiHeaderSection side="right">
+        <EuiHeaderSectionItem>
+          <HeaderUserMenu />
+        </EuiHeaderSectionItem>
+      </EuiHeaderSection>
     </StyledHeader>
   );
 };
@@ -48,8 +45,8 @@ const StyledHeader = styled(EuiHeader)`
 `;
 
 const HeaderLogo = styled(EuiHeaderLogo)`
-  height: 50px;
-  min-width: 50px;
+  height: 60px;
+  min-width: 60px;
   margin-left: ${({ $spacer }) => ($spacer ? "6px" : 0)};
   &:hover,
   &:focus {

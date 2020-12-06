@@ -27,6 +27,9 @@ export const schema = gql`
 
   input CreateUserInput {
     key: String!
+    firstNames: String
+    lastNames: String
+    picture: String
   }
 
   input UpdateUserInput {
