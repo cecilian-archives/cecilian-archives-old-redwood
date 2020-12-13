@@ -38,4 +38,11 @@ export const archive = {
     const top = transparentize(0.2, theme.archive.blueShades[93]);
     return `linear-gradient(to top, ${base}, ${top})`;
   },
+  breakpoints: {
+    xs: 0,
+    s: 575,
+    m: 768,
+    l: 992,
+    xl: 1200,
+  },
 };
