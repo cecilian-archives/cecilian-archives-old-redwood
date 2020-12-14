@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { EuiTitle } from "@elastic/eui";
 import { ImKey } from "react-icons/im";
 import ResponsiveTabs from "src/components/ResponsiveTabs/ResponsiveTabs";
+import { motion, AnimatePresence } from "framer-motion";
 
 const MyProfilePage = ({ tab }) => {
   const tabs = [
@@ -46,12 +47,22 @@ const MyProfilePage = ({ tab }) => {
         selectedTabId={selectedTabId}
         topLevelRoute="myProfileTab"
       />
-      <Content>{selectedTab.content}</Content>
+      <AnimatePresence exitBeforeEnter>
+        <Content
+          key={selectedTabId}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          {selectedTab.content}
+        </Content>
+      </AnimatePresence>
     </PageLayout>
   );
 };
 
-const Content = styled.div`
+const Content = styled(motion.div)`
   padding: ${({ theme }) => theme.euiSizeXL} 0;
 `;
 
