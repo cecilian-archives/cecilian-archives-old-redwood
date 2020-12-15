@@ -1,9 +1,7 @@
 import PageLayout from "src/layouts/PageLayout/PageLayout";
-import styled from "styled-components";
-import { EuiTitle } from "@elastic/eui";
+import { EuiText } from "@elastic/eui";
 import { ImKey } from "react-icons/im";
 import ResponsiveTabs from "src/components/ResponsiveTabs/ResponsiveTabs";
-import { motion, AnimatePresence } from "framer-motion";
 
 const MyProfilePage = ({ tab }) => {
   const tabs = [
@@ -11,7 +9,17 @@ const MyProfilePage = ({ tab }) => {
       id: "tag",
       name: "Archive Tag",
       icon: "tag",
-      content: <p>Your archive tag</p>,
+      content: (
+        <EuiText>
+          <p>
+            Items in the archive that are related to you can be tagged as such.
+          </p>
+          <p>
+            If a tag exists for your name already, select it here. If you don't
+            have an archive tag yet, create one!
+          </p>
+        </EuiText>
+      ),
     },
     {
       id: "about",
@@ -35,35 +43,16 @@ const MyProfilePage = ({ tab }) => {
 
   const validTabIds = tabs.map((tab) => tab.id);
   const selectedTabId = validTabIds.includes(tab) ? tab : validTabIds[0];
-  const [selectedTab] = tabs.filter((tab) => tab.id === selectedTabId);
 
   return (
-    <PageLayout>
-      <EuiTitle>
-        <h1>Your Profile</h1>
-      </EuiTitle>
+    <PageLayout headerTitle="Your Profile" noPadding>
       <ResponsiveTabs
         tabs={tabs}
         selectedTabId={selectedTabId}
         topLevelRoute="myProfileTab"
       />
-      <AnimatePresence exitBeforeEnter>
-        <Content
-          key={selectedTabId}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          {selectedTab.content}
-        </Content>
-      </AnimatePresence>
     </PageLayout>
   );
 };
-
-const Content = styled(motion.div)`
-  padding: ${({ theme }) => theme.euiSizeXL} 0;
-`;
 
 export default MyProfilePage;

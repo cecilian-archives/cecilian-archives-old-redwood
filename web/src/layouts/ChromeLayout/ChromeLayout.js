@@ -6,14 +6,14 @@ import LoadingScreen from "src/components/LoadingScreen/LoadingScreen";
 import Header from "src/components/Header/Header";
 import Footer from "src/components/Footer/Footer";
 
-const ChromeLayout = ({ children, minimal = false }) => {
+const ChromeLayout = ({ headerTitle, children, minimal = false }) => {
   const { loading: authLoading } = useAuth();
   const { loading: pageLoading } = usePageLoadingContext();
   if (authLoading) return <LoadingScreen />;
 
   return (
     <>
-      <Header minimal={minimal} />
+      <Header title={headerTitle} minimal={minimal} />
       <Main>{children}</Main>
       <Footer />
       {pageLoading && <LoadingToast />}

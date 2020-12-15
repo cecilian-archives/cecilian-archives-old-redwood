@@ -3,13 +3,14 @@ import {
   EuiHeaderLogo,
   EuiHeaderSection,
   EuiHeaderSectionItem,
+  EuiTitle,
 } from "@elastic/eui";
 import styled from "styled-components";
 import Logo from "src/assets/svg/logo.svg";
 import HeaderUserMenu from "./HeaderUserMenu";
 import HeaderAppMenu from "./HeaderAppMenu";
 
-const Header = ({ minimal = false }) => {
+const Header = ({ title, minimal = false }) => {
   return (
     <StyledHeader position="fixed">
       <EuiHeaderSection grow={minimal}>
@@ -26,6 +27,11 @@ const Header = ({ minimal = false }) => {
             onClick={(e) => e.preventDefault()}
             aria-label="Go to home page"
           />
+          {title && (
+            <HeaderTitle size="s">
+              <h1>{title}</h1>
+            </HeaderTitle>
+          )}
         </EuiHeaderSectionItem>
       </EuiHeaderSection>
       <EuiHeaderSection side="right">
@@ -52,6 +58,10 @@ const HeaderLogo = styled(EuiHeaderLogo)`
   &:focus {
     background: ${({ theme }) => theme.archive.blueShades[93]};
   }
+`;
+
+const HeaderTitle = styled(EuiTitle)`
+  color: ${({ theme }) => theme.archive.shades.empty};
 `;
 
 const Logo32 = styled(Logo)`

@@ -4,20 +4,25 @@ import {
   EuiPageContent,
   EuiPageContentBody,
 } from "@elastic/eui";
+import styled from "styled-components";
 import ChromeLayout from "src/layouts/ChromeLayout/ChromeLayout";
 
-const PageLayout = ({ children, minimalChrome }) => {
+const PageLayout = ({ headerTitle, children, minimalChrome, noPadding }) => {
   return (
-    <ChromeLayout minimal={minimalChrome}>
+    <ChromeLayout headerTitle={headerTitle} minimal={minimalChrome}>
       <EuiPage>
         <EuiPageBody component="div">
-          <EuiPageContent>
+          <PageContent $noPadding={noPadding}>
             <EuiPageContentBody>{children}</EuiPageContentBody>
-          </EuiPageContent>
+          </PageContent>
         </EuiPageBody>
       </EuiPage>
     </ChromeLayout>
   );
 };
+
+const PageContent = styled(EuiPageContent)`
+  padding: ${({ theme, $noPadding }) => ($noPadding ? 0 : theme.euiSizeL)};
+`;
 
 export default PageLayout;
