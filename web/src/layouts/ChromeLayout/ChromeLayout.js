@@ -6,7 +6,7 @@ import LoadingScreen from "src/components/LoadingScreen/LoadingScreen";
 import Header from "src/components/Header/Header";
 import Footer from "src/components/Footer/Footer";
 
-const ChromeLayout = ({ headerTitle, children, minimal = false }) => {
+const ChromeLayout = ({ headerTitle, children, minimal = false, center }) => {
   const { loading: authLoading } = useAuth();
   const { loading: pageLoading } = usePageLoadingContext();
   if (authLoading) return <LoadingScreen />;
@@ -14,7 +14,7 @@ const ChromeLayout = ({ headerTitle, children, minimal = false }) => {
   return (
     <>
       <Header title={headerTitle} minimal={minimal} />
-      <Main>{children}</Main>
+      <Main center={center}>{children}</Main>
       <Footer />
       {pageLoading && <LoadingToast />}
     </>
@@ -24,6 +24,13 @@ const ChromeLayout = ({ headerTitle, children, minimal = false }) => {
 const Main = styled.main`
   padding: 61px 0 0 0;
   min-height: calc(100vh - 55px);
+  ${({ center }) =>
+    center
+      ? `display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;`
+      : ""}
   @media (max-width: ${({ theme }) => theme.euiBreakpoints.m}) {
     min-height: calc(100vh - 105px);
   }

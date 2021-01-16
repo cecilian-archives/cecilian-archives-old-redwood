@@ -10,13 +10,13 @@ export const users = () => {
 };
 
 export const user = ({ id }) => {
-  return db.user.findOne({
+  return db.user.findUnique({
     where: { id },
   });
 };
 
 export const userBySubject = ({ subject }) => {
-  return db.user.findOne({
+  return db.user.findUnique({
     where: { subject },
   });
 };
@@ -103,25 +103,25 @@ export const deleteUser = ({ id }) => {
 
 export const User = {
   profile: (_obj, { root }) =>
-    db.user.findOne({ where: { id: root.id } }).profile(),
+    db.user.findUnique({ where: { id: root.id } }).profile(),
   accessKey: (_obj, { root }) =>
-    db.user.findOne({ where: { id: root.id } }).accessKey(),
+    db.user.findUnique({ where: { id: root.id } }).accessKey(),
   verifiedByKey: (_obj, { root }) =>
-    db.user.findOne({ where: { id: root.id } }).verifiedByKey(),
+    db.user.findUnique({ where: { id: root.id } }).verifiedByKey(),
   roles: (_obj, { root }) =>
-    db.user.findOne({ where: { id: root.id } }).roles(),
+    db.user.findUnique({ where: { id: root.id } }).roles(),
   archiveItemsCreated: (_obj, { root }) =>
-    db.user.findOne({ where: { id: root.id } }).archiveItemsCreated(),
+    db.user.findUnique({ where: { id: root.id } }).archiveItemsCreated(),
   collectionsOwned: (_obj, { root }) =>
-    db.user.findOne({ where: { id: root.id } }).collectionsOwned(),
+    db.user.findUnique({ where: { id: root.id } }).collectionsOwned(),
   collectionsCreated: (_obj, { root }) =>
-    db.user.findOne({ where: { id: root.id } }).collectionsCreated(),
+    db.user.findUnique({ where: { id: root.id } }).collectionsCreated(),
   ArchiveItem: (_obj, { root }) =>
-    db.user.findOne({ where: { id: root.id } }).ArchiveItem(),
+    db.user.findUnique({ where: { id: root.id } }).ArchiveItem(),
   ArchiveFile: (_obj, { root }) =>
-    db.user.findOne({ where: { id: root.id } }).ArchiveFile(),
+    db.user.findUnique({ where: { id: root.id } }).ArchiveFile(),
   ArchiveCollection: (_obj, { root }) =>
-    db.user.findOne({ where: { id: root.id } }).ArchiveCollection(),
+    db.user.findUnique({ where: { id: root.id } }).ArchiveCollection(),
   CollectionItem: (_obj, { root }) =>
-    db.user.findOne({ where: { id: root.id } }).CollectionItem(),
+    db.user.findUnique({ where: { id: root.id } }).CollectionItem(),
 };

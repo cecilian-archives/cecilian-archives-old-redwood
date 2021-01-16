@@ -3,7 +3,7 @@ export const schema = gql`
     id: Int!
     slug: String!
     displayName: String!
-    otherNames: [String]!
+    otherNames: String
     user: UserProfile
     tags: [CecilianTag]!
     inArchiveItems: [ArchiveItemCecilian]!
@@ -15,20 +15,19 @@ export const schema = gql`
 
   type Query {
     cecilians: [Cecilian!]!
+    searchCecilians(needle: String, skip: Int, take: Int): [Cecilian!]!
     cecilian(id: Int!): Cecilian
   }
 
   input CreateCecilianInput {
-    slug: String!
     displayName: String!
-    otherNames: [String]!
-    deletedAt: DateTime
+    otherNames: String
   }
 
   input UpdateCecilianInput {
     slug: String
     displayName: String
-    otherNames: [String]!
+    otherNames: String
     deletedAt: DateTime
   }
 

@@ -6,7 +6,7 @@ export const archiveItemCecilians = () => {
 };
 
 export const archiveItemCecilian = ({ id }) => {
-  return db.archiveItemCecilian.findOne({
+  return db.archiveItemCecilian.findUnique({
     where: { id },
   });
 };
@@ -32,7 +32,7 @@ export const deleteArchiveItemCecilian = ({ id }) => {
 
 export const ArchiveItemCecilian = {
   cecilian: (_obj, { root }) =>
-    db.archiveItemCecilian.findOne({ where: { id: root.id } }).cecilian(),
+    db.archiveItemCecilian.findUnique({ where: { id: root.id } }).cecilian(),
   item: (_obj, { root }) =>
-    db.archiveItemCecilian.findOne({ where: { id: root.id } }).item(),
+    db.archiveItemCecilian.findUnique({ where: { id: root.id } }).item(),
 };

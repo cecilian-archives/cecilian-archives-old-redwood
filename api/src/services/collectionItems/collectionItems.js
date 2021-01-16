@@ -6,7 +6,7 @@ export const collectionItems = () => {
 };
 
 export const collectionItem = ({ id }) => {
-  return db.collectionItem.findOne({
+  return db.collectionItem.findUnique({
     where: { id },
   });
 };
@@ -32,9 +32,9 @@ export const deleteCollectionItem = ({ id }) => {
 
 export const CollectionItem = {
   item: (_obj, { root }) =>
-    db.collectionItem.findOne({ where: { id: root.id } }).item(),
+    db.collectionItem.findUnique({ where: { id: root.id } }).item(),
   collection: (_obj, { root }) =>
-    db.collectionItem.findOne({ where: { id: root.id } }).collection(),
+    db.collectionItem.findUnique({ where: { id: root.id } }).collection(),
   addedBy: (_obj, { root }) =>
-    db.collectionItem.findOne({ where: { id: root.id } }).addedBy(),
+    db.collectionItem.findUnique({ where: { id: root.id } }).addedBy(),
 };

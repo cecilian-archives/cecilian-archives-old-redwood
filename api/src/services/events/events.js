@@ -6,7 +6,7 @@ export const events = () => {
 };
 
 export const event = ({ id }) => {
-  return db.event.findOne({
+  return db.event.findUnique({
     where: { id },
   });
 };
@@ -32,9 +32,9 @@ export const deleteEvent = ({ id }) => {
 
 export const Event = {
   inherentYear: (_obj, { root }) =>
-    db.event.findOne({ where: { id: root.id } }).inherentYear(),
+    db.event.findUnique({ where: { id: root.id } }).inherentYear(),
   roles: (_obj, { root }) =>
-    db.event.findOne({ where: { id: root.id } }).roles(),
+    db.event.findUnique({ where: { id: root.id } }).roles(),
   inTags: (_obj, { root }) =>
-    db.event.findOne({ where: { id: root.id } }).inTags(),
+    db.event.findUnique({ where: { id: root.id } }).inTags(),
 };

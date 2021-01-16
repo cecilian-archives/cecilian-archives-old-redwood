@@ -1,31 +1,30 @@
-import PageLayout from "src/layouts/PageLayout/PageLayout";
-import { EuiText } from "@elastic/eui";
+import ChromeLayout from "src/layouts/ChromeLayout/ChromeLayout";
+import {
+  EuiPage,
+  EuiPageBody,
+  EuiPageContent,
+  EuiPageContentBody,
+} from "@elastic/eui";
+import styled from "styled-components";
 import { ImKey } from "react-icons/im";
 import ResponsiveTabs from "src/components/ResponsiveTabs/ResponsiveTabs";
+import MyProfileCell from "src/components/MyProfileCell/MyProfileCell";
+import MyProfileArchiveTag from "src/components/MyProfileArchiveTag/MyProfileArchiveTag";
+import MyProfileAboutYou from "src/components/MyProfileAboutYou/MyProfileAboutYou";
 
-const MyProfilePage = ({ tab }) => {
+export const MyProfile = ({ profile, cecilians, tab }) => {
   const tabs = [
     {
       id: "tag",
       name: "Archive Tag",
       icon: "tag",
-      content: (
-        <EuiText>
-          <p>
-            Items in the archive that are related to you can be tagged as such.
-          </p>
-          <p>
-            If a tag exists for your name already, select it here. If you don't
-            have an archive tag yet, create one!
-          </p>
-        </EuiText>
-      ),
+      content: <MyProfileArchiveTag profile={profile} cecilians={cecilians} />,
     },
     {
       id: "about",
       name: "About You",
       icon: "user",
-      content: <p>Names, picture, and year/show/role tags</p>,
+      content: <MyProfileAboutYou profile={profile} cecilians={cecilians} />,
     },
     {
       id: "contact",
@@ -45,14 +44,28 @@ const MyProfilePage = ({ tab }) => {
   const selectedTabId = validTabIds.includes(tab) ? tab : validTabIds[0];
 
   return (
-    <PageLayout headerTitle="Your Profile" noPadding>
-      <ResponsiveTabs
-        tabs={tabs}
-        selectedTabId={selectedTabId}
-        topLevelRoute="myProfileTab"
-      />
-    </PageLayout>
+    <ChromeLayout headerTitle="Your Profile">
+      <EuiPage>
+        <EuiPageBody component="div">
+          <PageContent>
+            <EuiPageContentBody>
+              <ResponsiveTabs
+                tabs={tabs}
+                selectedTabId={selectedTabId}
+                topLevelRoute="myProfileTab"
+              />
+            </EuiPageContentBody>
+          </PageContent>
+        </EuiPageBody>
+      </EuiPage>
+    </ChromeLayout>
   );
 };
+
+const PageContent = styled(EuiPageContent)`
+  padding: 0;
+`;
+
+const MyProfilePage = ({ tab }) => <MyProfileCell tab={tab} />;
 
 export default MyProfilePage;

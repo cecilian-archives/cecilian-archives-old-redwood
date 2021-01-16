@@ -6,7 +6,7 @@ export const years = () => {
 };
 
 export const year = ({ id }) => {
-  return db.year.findOne({
+  return db.year.findUnique({
     where: { id },
   });
 };
@@ -32,7 +32,7 @@ export const deleteYear = ({ id }) => {
 
 export const Year = {
   events: (_obj, { root }) =>
-    db.year.findOne({ where: { id: root.id } }).events(),
+    db.year.findUnique({ where: { id: root.id } }).events(),
   inTags: (_obj, { root }) =>
-    db.year.findOne({ where: { id: root.id } }).inTags(),
+    db.year.findUnique({ where: { id: root.id } }).inTags(),
 };

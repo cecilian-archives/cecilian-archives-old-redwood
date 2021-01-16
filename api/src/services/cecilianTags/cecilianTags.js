@@ -6,7 +6,7 @@ export const cecilianTags = () => {
 };
 
 export const cecilianTag = ({ id }) => {
-  return db.cecilianTag.findOne({
+  return db.cecilianTag.findUnique({
     where: { id },
   });
 };
@@ -32,7 +32,7 @@ export const deleteCecilianTag = ({ id }) => {
 
 export const CecilianTag = {
   cecilian: (_obj, { root }) =>
-    db.cecilianTag.findOne({ where: { id: root.id } }).cecilian(),
+    db.cecilianTag.findUnique({ where: { id: root.id } }).cecilian(),
   tag: (_obj, { root }) =>
-    db.cecilianTag.findOne({ where: { id: root.id } }).tag(),
+    db.cecilianTag.findUnique({ where: { id: root.id } }).tag(),
 };

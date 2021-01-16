@@ -6,7 +6,7 @@ export const archiveItemTags = () => {
 };
 
 export const archiveItemTag = ({ id }) => {
-  return db.archiveItemTag.findOne({
+  return db.archiveItemTag.findUnique({
     where: { id },
   });
 };
@@ -32,7 +32,7 @@ export const deleteArchiveItemTag = ({ id }) => {
 
 export const ArchiveItemTag = {
   item: (_obj, { root }) =>
-    db.archiveItemTag.findOne({ where: { id: root.id } }).item(),
+    db.archiveItemTag.findUnique({ where: { id: root.id } }).item(),
   tag: (_obj, { root }) =>
-    db.archiveItemTag.findOne({ where: { id: root.id } }).tag(),
+    db.archiveItemTag.findUnique({ where: { id: root.id } }).tag(),
 };

@@ -6,7 +6,7 @@ export const userContacts = () => {
 };
 
 export const userContact = ({ id }) => {
-  return db.userContact.findOne({
+  return db.userContact.findUnique({
     where: { id },
   });
 };
@@ -32,7 +32,7 @@ export const deleteUserContact = ({ id }) => {
 
 export const UserContact = {
   user: (_obj, { root }) =>
-    db.userContact.findOne({ where: { id: root.id } }).user(),
+    db.userContact.findUnique({ where: { id: root.id } }).user(),
   UserProfile: (_obj, { root }) =>
-    db.userContact.findOne({ where: { id: root.id } }).UserProfile(),
+    db.userContact.findUnique({ where: { id: root.id } }).UserProfile(),
 };

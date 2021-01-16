@@ -6,7 +6,7 @@ export const roles = () => {
 };
 
 export const role = ({ id }) => {
-  return db.role.findOne({
+  return db.role.findUnique({
     where: { id },
   });
 };
@@ -32,7 +32,7 @@ export const deleteRole = ({ id }) => {
 
 export const Role = {
   inherentEvent: (_obj, { root }) =>
-    db.role.findOne({ where: { id: root.id } }).inherentEvent(),
+    db.role.findUnique({ where: { id: root.id } }).inherentEvent(),
   inTags: (_obj, { root }) =>
-    db.role.findOne({ where: { id: root.id } }).inTags(),
+    db.role.findUnique({ where: { id: root.id } }).inTags(),
 };

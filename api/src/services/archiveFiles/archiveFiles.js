@@ -6,7 +6,7 @@ export const archiveFiles = () => {
 };
 
 export const archiveFile = ({ id }) => {
-  return db.archiveFile.findOne({
+  return db.archiveFile.findUnique({
     where: { id },
   });
 };
@@ -35,7 +35,7 @@ export const deleteArchiveFile = ({ id }) => {
 
 export const ArchiveFile = {
   items: (_obj, { root }) =>
-    db.archiveFile.findOne({ where: { id: root.id } }).items(),
+    db.archiveFile.findUnique({ where: { id: root.id } }).items(),
   deletedBy: (_obj, { root }) =>
-    db.archiveFile.findOne({ where: { id: root.id } }).deletedBy(),
+    db.archiveFile.findUnique({ where: { id: root.id } }).deletedBy(),
 };

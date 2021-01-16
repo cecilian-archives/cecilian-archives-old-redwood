@@ -5,10 +5,12 @@ export const schema = gql`
     userId: Int!
     cecilian: Cecilian
     cecilianId: Int
+    accessKeys: [AccessKey]!
     title: String
     firstNames: String
     lastNames: String
-    otherNames: [String]!
+    otherNames: String
+    picture: String
     contactDetails: [UserContact]!
     anniversary60: Anniversary60Profile
     visibility: Visibility!
@@ -25,6 +27,7 @@ export const schema = gql`
   type Query {
     userProfiles: [UserProfile!]!
     userProfile(id: Int!): UserProfile
+    myProfile: UserProfile
   }
 
   input CreateUserProfileInput {
