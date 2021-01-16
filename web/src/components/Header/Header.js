@@ -6,6 +6,7 @@ import {
   EuiTitle,
 } from "@elastic/eui";
 import styled from "styled-components";
+import { transparentize } from "polished";
 import Logo from "src/assets/svg/logo.svg";
 import HeaderUserMenu from "./HeaderUserMenu";
 import HeaderAppMenu from "./HeaderAppMenu";
@@ -14,12 +15,12 @@ const Header = ({ title, minimal = false }) => {
   return (
     <StyledHeader position="fixed">
       <EuiHeaderSection grow={minimal}>
-        {!minimal && (
+        {/* {!minimal && (
           <EuiHeaderSectionItem border="right">
             <HeaderAppMenu />
           </EuiHeaderSectionItem>
-        )}
-        <EuiHeaderSectionItem border="none">
+        )} */}
+        <EuiHeaderSectionItem border="right">
           <HeaderLogo
             $spacer={minimal}
             iconType={Logo32}
@@ -47,7 +48,8 @@ const StyledHeader = styled(EuiHeader)`
   height: 60px;
   background: ${({ theme }) => theme.archive.blueShades[90]};
   border-bottom: none;
-  box-shadow: none;
+  box-shadow: 0px 3px 3px
+    ${({ theme }) => transparentize(0.85, theme.archive.shades.darkest)};
 `;
 
 const HeaderLogo = styled(EuiHeaderLogo)`
@@ -62,6 +64,7 @@ const HeaderLogo = styled(EuiHeaderLogo)`
 
 const HeaderTitle = styled(EuiTitle)`
   color: ${({ theme }) => theme.archive.shades.empty};
+  margin-right: 12px;
 `;
 
 const Logo32 = styled(Logo)`

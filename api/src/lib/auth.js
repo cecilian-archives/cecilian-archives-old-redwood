@@ -2,7 +2,7 @@
 // to return a real user from your database, you could do something like:
 //
 //   export const getCurrentUser = async ({ email }) => {
-//     return await db.user.findOne({ where: { email } })
+//     return await db.user.findUnique({ where: { email } })
 //   }
 //
 // If you want to enforce role-based access ...
@@ -68,7 +68,7 @@ import { db } from "./db";
  * @example - No role-based access control.
  *
  * export const getCurrentUser = async (decoded) => {
- *   return await db.user.findOne({ where: { decoded.email } })
+ *   return await db.user.findUnique({ where: { decoded.email } })
  * }
  *
  * @example - User info is contained in the decoded token and roles extracted
@@ -80,7 +80,7 @@ import { db } from "./db";
  * @example - User record query by email with namespaced app_metadata roles
  *
  * export const getCurrentUser = async (decoded) => {
- *   const currentUser = await db.user.findOne({ where: { email: decoded.email } })
+ *   const currentUser = await db.user.findUnique({ where: { email: decoded.email } })
  *
  *   return {
  *     ...currentUser,
@@ -91,7 +91,7 @@ import { db } from "./db";
  * @example - User record query by an identity with app_metadata roles
  *
  * const getCurrentUser = async (decoded) => {
- *   const currentUser = await db.user.findOne({ where: { userIdentity: decoded.sub } })
+ *   const currentUser = await db.user.findUnique({ where: { userIdentity: decoded.sub } })
  *   return {
  *     ...currentUser,
  *     roles: parseJWT({ decoded: decoded }).roles,
@@ -100,7 +100,7 @@ import { db } from "./db";
  */
 export const getCurrentUser = async (decoded) => {
   if (!decoded) return null;
-  const currentUser = await db.user.findOne({
+  const currentUser = await db.user.findUnique({
     where: { subject: decoded.sub },
     select: {
       slug: true,

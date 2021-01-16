@@ -6,7 +6,7 @@ export const anniversary60Profiles = () => {
 };
 
 export const anniversary60Profile = ({ id }) => {
-  return db.anniversary60Profile.findOne({
+  return db.anniversary60Profile.findUnique({
     where: { id },
   });
 };
@@ -32,5 +32,7 @@ export const deleteAnniversary60Profile = ({ id }) => {
 
 export const Anniversary60Profile = {
   userProfile: (_obj, { root }) =>
-    db.anniversary60Profile.findOne({ where: { id: root.id } }).userProfile(),
+    db.anniversary60Profile
+      .findUnique({ where: { id: root.id } })
+      .userProfile(),
 };

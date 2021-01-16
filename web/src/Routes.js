@@ -16,8 +16,8 @@ const Routes = () => {
       <Route notfound page={NotFoundPage} />
 
       <Private unauthenticated="home">
-        <Route path="/auth/login" page={AuthLoginPage} name="authLogin" />
         <Route path="/auth/key" page={AuthKeyPage} name="authKey" />
+        <Route path="/auth/login" page={AuthLoginPage} name="authLogin" />
       </Private>
 
       <Private unauthenticated="authKey" role="verifiedCecilian">

@@ -8,8 +8,8 @@ import logo2007 from "src/assets/images/cecilian_logo_c2007.png";
 const Footer = () => {
   return (
     <Root>
-      <HelpLink href="mailto:help@cecilianarchives.com">
-        Something not working? Email help@cecilianarchives.com
+      <HelpLink href="mailto:support@cecilianarchives.com">
+        Got a question? Email support@cecilianarchives.com
       </HelpLink>
       <Logos>
         <Logo src={logo1970} alt="Cecilian Society logo, circa 1970" />
@@ -34,6 +34,7 @@ const Root = styled.footer`
   justify-content: space-between;
   padding: 0 ${({ theme }) => theme.euiSizeXL};
   border-bottom: 5px solid ${({ theme }) => theme.archive.brightYellow};
+  box-shadow: 0px -3px 3px ${({ theme }) => transparentize(0.85, theme.archive.shades.darkest)};
 
   @media (max-width: ${({ theme }) => theme.euiBreakpoints.m}) {
     flex-direction: column;
@@ -44,7 +45,7 @@ const Root = styled.footer`
 const HelpLink = styled.a`
   color: ${({ theme }) => theme.archive.shades.lightest};
   font-size: ${({ theme }) => theme.euiFontSizeS};
-  transition: transform 0.2s ease-in 0s;
+  transition: transform 0.2s ease-out 0s;
   &:hover {
     text-decoration: underline;
     transform: translateY(-1px);

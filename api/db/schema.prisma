@@ -62,7 +62,7 @@ model UserProfile {
   title          String?
   firstNames     String?
   lastNames      String?
-  otherNames     String[]
+  otherNames     String?
   picture        String?
   contactDetails UserContact[]
   anniversary60  Anniversary60Profile? @relation("Profile60th")
@@ -135,7 +135,7 @@ model Cecilian {
   id         Int     @id @default(autoincrement())
   slug       String  @unique
   displayName String
-  otherNames String[]
+  otherNames String?
   user       UserProfile? @relation("ProfileCecilian")
   tags       CecilianTag[] /// Years, Events, Roles
   inArchiveItems ArchiveItemCecilian[]

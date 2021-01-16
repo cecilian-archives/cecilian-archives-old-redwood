@@ -6,7 +6,7 @@ export const archiveCollections = () => {
 };
 
 export const archiveCollection = ({ id }) => {
-  return db.archiveCollection.findOne({
+  return db.archiveCollection.findUnique({
     where: { id },
   });
 };
@@ -35,11 +35,11 @@ export const deleteArchiveCollection = ({ id }) => {
 
 export const ArchiveCollection = {
   owner: (_obj, { root }) =>
-    db.archiveCollection.findOne({ where: { id: root.id } }).owner(),
+    db.archiveCollection.findUnique({ where: { id: root.id } }).owner(),
   items: (_obj, { root }) =>
-    db.archiveCollection.findOne({ where: { id: root.id } }).items(),
+    db.archiveCollection.findUnique({ where: { id: root.id } }).items(),
   createdBy: (_obj, { root }) =>
-    db.archiveCollection.findOne({ where: { id: root.id } }).createdBy(),
+    db.archiveCollection.findUnique({ where: { id: root.id } }).createdBy(),
   updatedBy: (_obj, { root }) =>
-    db.archiveCollection.findOne({ where: { id: root.id } }).updatedBy(),
+    db.archiveCollection.findUnique({ where: { id: root.id } }).updatedBy(),
 };

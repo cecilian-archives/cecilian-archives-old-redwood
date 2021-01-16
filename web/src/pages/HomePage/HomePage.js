@@ -1,16 +1,10 @@
 import LandingLayout from "src/layouts/LandingLayout/LandingLayout";
-import { Link, routes } from "@redwoodjs/router";
+import LogoMessage from "src/components/LogoMessage/LogoMessage";
 
 const HomePage = () => {
   return (
     <LandingLayout>
-      <p>
-        Find me in <code>src/pages/HomePage/HomePage.js</code>
-      </p>
-      <p>
-        My default route is named <code>home</code>, link to me with `
-        <Link to={routes.home()}>Home</Link>`
-      </p>
+      <LogoMessage message="Descriptive content to be added" />
     </LandingLayout>
   );
 };

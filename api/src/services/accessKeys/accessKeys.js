@@ -6,13 +6,13 @@ export const accessKeys = () => {
 };
 
 export const accessKey = ({ id }) => {
-  return db.accessKey.findOne({
+  return db.accessKey.findUnique({
     where: { id },
   });
 };
 
 export const accessKeyByKey = ({ key }) => {
-  return db.accessKey.findOne({
+  return db.accessKey.findUnique({
     where: { key },
   });
 };
@@ -38,7 +38,7 @@ export const deleteAccessKey = ({ id }) => {
 
 export const AccessKey = {
   owner: (_obj, { root }) =>
-    db.accessKey.findOne({ where: { id: root.id } }).owner(),
+    db.accessKey.findUnique({ where: { id: root.id } }).owner(),
   usedBy: (_obj, { root }) =>
-    db.accessKey.findOne({ where: { id: root.id } }).usedBy(),
+    db.accessKey.findUnique({ where: { id: root.id } }).usedBy(),
 };

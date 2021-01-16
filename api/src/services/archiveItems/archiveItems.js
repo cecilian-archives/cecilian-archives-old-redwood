@@ -6,7 +6,7 @@ export const archiveItems = () => {
 };
 
 export const archiveItem = ({ id }) => {
-  return db.archiveItem.findOne({
+  return db.archiveItem.findUnique({
     where: { id },
   });
 };
@@ -35,17 +35,17 @@ export const deleteArchiveItem = ({ id }) => {
 
 export const ArchiveItem = {
   collections: (_obj, { root }) =>
-    db.archiveItem.findOne({ where: { id: root.id } }).collections(),
+    db.archiveItem.findUnique({ where: { id: root.id } }).collections(),
   author: (_obj, { root }) =>
-    db.archiveItem.findOne({ where: { id: root.id } }).author(),
+    db.archiveItem.findUnique({ where: { id: root.id } }).author(),
   tags: (_obj, { root }) =>
-    db.archiveItem.findOne({ where: { id: root.id } }).tags(),
+    db.archiveItem.findUnique({ where: { id: root.id } }).tags(),
   cecilians: (_obj, { root }) =>
-    db.archiveItem.findOne({ where: { id: root.id } }).cecilians(),
+    db.archiveItem.findUnique({ where: { id: root.id } }).cecilians(),
   files: (_obj, { root }) =>
-    db.archiveItem.findOne({ where: { id: root.id } }).files(),
+    db.archiveItem.findUnique({ where: { id: root.id } }).files(),
   createdBy: (_obj, { root }) =>
-    db.archiveItem.findOne({ where: { id: root.id } }).createdBy(),
+    db.archiveItem.findUnique({ where: { id: root.id } }).createdBy(),
   updatedBy: (_obj, { root }) =>
-    db.archiveItem.findOne({ where: { id: root.id } }).updatedBy(),
+    db.archiveItem.findUnique({ where: { id: root.id } }).updatedBy(),
 };

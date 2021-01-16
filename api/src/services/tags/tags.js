@@ -6,7 +6,7 @@ export const tags = () => {
 };
 
 export const tag = ({ id }) => {
-  return db.tag.findOne({
+  return db.tag.findUnique({
     where: { id },
   });
 };
@@ -31,11 +31,14 @@ export const deleteTag = ({ id }) => {
 };
 
 export const Tag = {
-  role: (_obj, { root }) => db.tag.findOne({ where: { id: root.id } }).role(),
-  event: (_obj, { root }) => db.tag.findOne({ where: { id: root.id } }).event(),
-  year: (_obj, { root }) => db.tag.findOne({ where: { id: root.id } }).year(),
+  role: (_obj, { root }) =>
+    db.tag.findUnique({ where: { id: root.id } }).role(),
+  event: (_obj, { root }) =>
+    db.tag.findUnique({ where: { id: root.id } }).event(),
+  year: (_obj, { root }) =>
+    db.tag.findUnique({ where: { id: root.id } }).year(),
   cecilians: (_obj, { root }) =>
-    db.tag.findOne({ where: { id: root.id } }).cecilians(),
+    db.tag.findUnique({ where: { id: root.id } }).cecilians(),
   archiveItems: (_obj, { root }) =>
-    db.tag.findOne({ where: { id: root.id } }).archiveItems(),
+    db.tag.findUnique({ where: { id: root.id } }).archiveItems(),
 };
