@@ -1,7 +1,6 @@
 import { useState, useCallback } from "react";
 import { useQuery, useMutation } from "@redwoodjs/web";
 import { useTheme } from "styled-components";
-// import { EuiComboBox, EuiContext } from "@elastic/eui";
 
 const formatCase = (str) => {
   const words = str.split(" ");
@@ -138,30 +137,21 @@ const CecilianTagInput = ({ single = false, allowCreation = false }) => {
     }
   };
 
-  const mappings = {
-    mapping: {
-      "euiComboBoxOptionsList.noAvailableOptions":
-        "Search to find available options",
-    },
-  };
-
   return (
-    <div i18n={mappings}>
-      <div
-        placeholder="Type to search"
-        async
-        isLoading={loading}
-        options={options}
-        selectedOptions={selectedOptions}
-        singleSelection={single}
-        onChange={onChange}
-        onSearchChange={onSearchChange}
-        onCreateOption={allowCreation ? onCreateOption : undefined}
-        customOptionText="Add a tag for {searchValue}"
-        isClearable={false}
-        sortMatchesBy="startsWith"
-      />
-    </div>
+    <div
+      placeholder="Type to search"
+      async
+      isLoading={loading}
+      options={options}
+      selectedOptions={selectedOptions}
+      singleSelection={single}
+      onChange={onChange}
+      onSearchChange={onSearchChange}
+      onCreateOption={allowCreation ? onCreateOption : undefined}
+      customOptionText="Add a tag for {searchValue}"
+      isClearable={false}
+      sortMatchesBy="startsWith"
+    />
   );
 };
 

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import tw, { styled } from "twin.macro";
 import { motion } from "framer-motion";
 
 const AnimatedLogo = ({ width }) => {
@@ -35,8 +35,8 @@ const AnimatedLogo = ({ width }) => {
   );
 };
 
-const Wrapper = styled.div`
-  width: ${({ width }) => width || "7rem"};
-`;
+const Wrapper = styled.div(({ width }) => [
+  width ? `width: ${width};` : tw`w-28`,
+]);
 
 export default AnimatedLogo;

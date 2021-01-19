@@ -1,4 +1,3 @@
-// import { EuiFormRow, EuiDescribedFormGroup } from "@elastic/eui";
 import CecilianTagInput from "src/components/CecilianTagInput/CecilianTagInput";
 
 const MyProfileArchiveTag = () => {

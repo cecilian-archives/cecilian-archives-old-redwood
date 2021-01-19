@@ -1,15 +1,7 @@
 import { Redirect, routes } from "@redwoodjs/router";
 import { useAuth } from "@redwoodjs/auth";
-import styled from "styled-components";
+import tw from "twin.macro";
 import PageLayout from "src/layouts/PageLayout/PageLayout";
-// import {
-//   EuiTitle,
-//   EuiText,
-//   EuiForm,
-//   EuiFormRow,
-//   EuiFieldText,
-//   EuiButton,
-// } from "@elastic/eui";
 import { ImKey } from "react-icons/im";
 import { useMutation } from "@redwoodjs/web";
 import { useState } from "react";
@@ -90,8 +82,9 @@ const AuthKeyPage = () => {
   );
 };
 
-const FormWrapper = styled.div`
-  margin: ${({ theme }) => theme.euiSizeXL} 0;
+const FormWrapper = tw.div`
+  my-4
+  mx-0
 `;
 
 export default AuthKeyPage;
