@@ -2,18 +2,18 @@ import { Redirect, routes } from "@redwoodjs/router";
 import { useAuth } from "@redwoodjs/auth";
 import styled from "styled-components";
 import PageLayout from "src/layouts/PageLayout/PageLayout";
-import {
-  EuiTitle,
-  EuiText,
-  EuiForm,
-  EuiFormRow,
-  EuiFieldText,
-  EuiButton,
-} from "@elastic/eui";
+// import {
+//   EuiTitle,
+//   EuiText,
+//   EuiForm,
+//   EuiFormRow,
+//   EuiFieldText,
+//   EuiButton,
+// } from "@elastic/eui";
 import { ImKey } from "react-icons/im";
 import { useMutation } from "@redwoodjs/web";
 import { useState } from "react";
-import LoadingScreen from "src/components/LoadingScreen/LoadingScreen";
+import LoadingScreen from "src/components/chrome/LoadingScreen/LoadingScreen";
 
 const CREATE_USER = gql`
   mutation createUserWithKey($input: CreateUserInput!) {
@@ -53,43 +53,44 @@ const AuthKeyPage = () => {
 
   return (
     <PageLayout minimalChrome>
-      <EuiTitle>
+      <div>
         <h1>Enter Your Key</h1>
-      </EuiTitle>
-      <EuiText>
+      </div>
+      <div>
         <p>
           To access the archives, you need another Cecilian's archive key for
           verification. If you have one, enter it here.
         </p>
-      </EuiText>
+      </div>
       <FormWrapper component="form">
-        <EuiFormRow
+        <div
           label="Archive Key"
           isInvalid={Boolean(error)}
           error={[error?.message]}
         >
-          <EuiFieldText
+          <input
+            type="text"
             name="key"
             icon={<ImKey />}
             autoComplete="off"
             value={enteredKey}
             onChange={(e) => setEnteredKey(e.target.value)}
           />
-        </EuiFormRow>
-        <EuiButton
+        </div>
+        <button
           type="submit"
           fill
           onClick={handleEnterClick}
           isLoading={loading}
         >
           Enter
-        </EuiButton>
+        </button>
       </FormWrapper>
     </PageLayout>
   );
 };
 
-const FormWrapper = styled(EuiForm)`
+const FormWrapper = styled.div`
   margin: ${({ theme }) => theme.euiSizeXL} 0;
 `;
 

@@ -1,6 +1,6 @@
 import { useAuth } from "@redwoodjs/auth";
 import { Redirect, routes } from "@redwoodjs/router";
-import LoadingScreen from "src/components/LoadingScreen/LoadingScreen";
+import LoadingScreen from "src/components/chrome/LoadingScreen/LoadingScreen";
 
 const AuthLoginPage = () => {
   const { currentUser } = useAuth();

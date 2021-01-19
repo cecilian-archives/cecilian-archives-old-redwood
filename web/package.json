@@ -14,29 +14,36 @@
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.13.3",
-    "@elastic/datemath": "^5.0.3",
-    "@elastic/eui": "^30.3.0",
     "@reduxjs/toolkit": "^1.4.0",
     "@redwoodjs/auth": "^0.23.0",
     "@redwoodjs/forms": "^0.23.0",
     "@redwoodjs/router": "^0.23.0",
     "@redwoodjs/web": "^0.23.0",
+    "@tailwindcss/forms": "^0.2.1",
     "animated-scroll-to": "^2.0.12",
     "babel-plugin-styled-components": "^1.11.1",
     "date-fns": "^2.16.1",
     "framer-motion": "^2.9.4",
-    "moment": "^2.29.1",
     "polished": "^4.0.3",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icons": "^3.11.0",
     "react-redux": "^7.2.2",
+    "react-spring": "^8.0.27",
     "redux-persist": "^6.0.0",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "twin.macro": "^2.0.8"
   },
   "devDependencies": {
-    "sass": "^1.29.0",
-    "sass-loader": "^10.1.0"
+    "autoprefixer": "9.8.6",
+    "patch-package": "^6.2.2",
+    "postcss-loader": "4.0.2",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+  },
+  "babelMacros": {
+    "twin": {
+      "preset": "styled-components"
+    }
   }
 }

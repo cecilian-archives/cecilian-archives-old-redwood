@@ -1,6 +1,6 @@
-import { EuiText, EuiButton, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
-import styled from "styled-components";
+import tw, { styled, theme } from "twin.macro";
 import { motion } from "framer-motion";
+import Button from "src/components/shared/Button/Button";
 import libraryImage from "src/assets/images/unsplash-PkbZahEG2Ng.jpg";
 import Logo from "src/assets/svg/logo.svg";
 
@@ -21,17 +21,13 @@ const HomeHero = ({ handleReadMoreClick, handleGetStartedClick }) => {
         animate={{ opacity: [0, 1] }}
         transition={{ duration: 0.7, delay: 0.9 }}
       >
-        <ButtonGroup gutterSize="xl" alignItems="center">
-          <EuiFlexItem grow={false}>
-            <EuiButton color="ghost" onClick={handleReadMoreClick}>
-              Read More
-            </EuiButton>
-          </EuiFlexItem>
-          <EuiFlexItem grow={false}>
-            <EuiButton color="ghost" fill onClick={handleGetStartedClick}>
-              Get Started
-            </EuiButton>
-          </EuiFlexItem>
+        <ButtonGroup>
+          <Button type="secondary" size="large" onClick={handleReadMoreClick}>
+            Read More
+          </Button>
+          <Button type="primary" size="large" onClick={handleGetStartedClick}>
+            Get Started
+          </Button>
         </ButtonGroup>
       </Animate>
     </HeroContainer>
@@ -39,55 +35,65 @@ const HomeHero = ({ handleReadMoreClick, handleGetStartedClick }) => {
 };
 
 const HeroContainer = styled.div`
-  width: 100vw;
-  min-height: 100vh;
-  background: ${({ theme }) => theme.archive.blueScreenGradient(theme)},
-    url(${libraryImage});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: ${({ theme }) => theme.paddingSizes.xl};
-  border-bottom: 2vh solid ${({ theme }) => theme.archive.brightYellow};
+  ${tw`w-screen
+  min-h-screen
+  bg-center
+  bg-no-repeat
+  bg-cover
+  flex
+  flex-col
+  justify-center
+  items-center
+  p-8
+  border-b-8
+  border-brightYellow`}
+  background-image: linear-gradient(
+    to top,
+    ${theme`colors.deepBlue.heroBase`},
+    ${theme`colors.deepBlue.heroTop`}
+  ),
+  url(${libraryImage});
 `;
 
 const SizedLogo = styled(Logo)`
-  width: auto;
-  max-width: 60px;
-  max-height: 60px;
-  border: 1px solid ${({ theme }) => theme.archive.blueShades[105]};
-  border-radius: 10px;
+  ${tw`w-auto
+  max-h-14
+  border
+  border-deepBlue-105
+  rounded-xl`}
 `;
 
-const Welcome = styled(EuiText)`
-  text-align: center;
-  padding: ${({ theme }) => theme.paddingSizes.xl};
+const Welcome = styled.div`
+  ${tw`text-center
+  p-8`}
   h1 {
-    color: ${({ theme }) => theme.euiColorGhost};
-    font-size: 4.5rem;
-    line-height: 5rem;
+    ${tw`font-title
+    text-white
+    text-7xl
+    pt-3`}
   }
   h2 {
-    color: ${({ theme }) => theme.euiColorGhost};
-    font-size: 2.5rem;
-    line-height: 4rem;
-    border-bottom: 1px solid ${({ theme }) => theme.archive.brightYellow};
+    ${tw`font-title
+    text-white
+    text-4xl
+    border-b
+    border-brightYellow
+    pb-4`}
   }
 `;
 
-const ButtonGroup = styled(EuiFlexGroup)`
-  padding: ${({ theme }) => theme.paddingSizes.xl};
-  flex-grow: 0;
+const ButtonGroup = tw.div`
+  p-8
+  flex-grow-0
+  space-x-12
+  md:py-8 md:px-0 md:max-w-full md:flex md:justify-between
 `;
 
-const Animate = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+const Animate = tw(motion.div)`
+  flex
+  flex-col
+  justify-center
+  items-center
 `;
 
 export default HomeHero;
