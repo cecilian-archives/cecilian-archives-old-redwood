@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import tw, { styled } from "twin.macro";
 import { useAuth } from "@redwoodjs/auth";
 import { usePageLoadingContext } from "@redwoodjs/router";
 // import LoadingToast from "src/components/LoadingToast/LoadingToast";
@@ -21,15 +21,14 @@ const ChromeLayout = ({ headerTitle, children, minimal = false, center }) => {
   );
 };
 
-const Main = styled.main`
-  padding: 61px 0 0 0;
-  ${({ center }) =>
-    center
-      ? `display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;`
-      : ""}
-`;
+const Main = styled.main(({ center }) => [
+  center &&
+    tw`
+    flex
+    flex-col
+    justify-center
+    items-center
+  `,
+]);
 
 export default ChromeLayout;

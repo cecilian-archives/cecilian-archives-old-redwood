@@ -1,11 +1,5 @@
 import ChromeLayout from "src/layouts/ChromeLayout/ChromeLayout";
-// import {
-//   EuiPage,
-//   EuiPageBody,
-//   EuiPageContent,
-//   EuiPageContentBody,
-// } from "@elastic/eui";
-import styled from "styled-components";
+import tw from "twin.macro";
 import { ImKey } from "react-icons/im";
 import ResponsiveTabs from "src/components/chrome/ResponsiveTabs/ResponsiveTabs";
 import MyProfileCell from "src/components/MyProfileCell/MyProfileCell";
@@ -62,8 +56,8 @@ export const MyProfile = ({ profile, cecilians, tab }) => {
   );
 };
 
-const PageContent = styled.div`
-  padding: 0;
+const PageContent = tw.div`
+  p-0
 `;
 
 const MyProfilePage = ({ tab }) => <MyProfileCell tab={tab} />;

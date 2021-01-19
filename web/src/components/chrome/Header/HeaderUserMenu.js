@@ -30,12 +30,7 @@ const HeaderUserMenu = () => {
   );
 
   const panelTitle = (
-    <div
-      gutterSize="m"
-      className="euiHeaderProfile"
-      responsive={false}
-      alignItems="center"
-    >
+    <div gutterSize="m" responsive={false} alignItems="center">
       <div>
         <div name={fullUserName} size="l" imageUrl={user.picture} />
       </div>

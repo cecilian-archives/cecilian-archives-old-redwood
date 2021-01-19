@@ -32,12 +32,7 @@ const ResponsiveTabs = ({ tabs, selectedTabId, topLevelRoute }) => {
                     <TabIcon type={tab.icon} />
                     {tab.name}
                   </span>
-                  {isMobile && (
-                    <div
-                      data-migration="EuiIcon"
-                      type={isSelected ? "" : "arrowDown"}
-                    />
-                  )}
+                  {isMobile && <div type={isSelected ? "" : "arrowDown"} />}
                 </TabInner>
               </StyledTab>
               {isMobile && (

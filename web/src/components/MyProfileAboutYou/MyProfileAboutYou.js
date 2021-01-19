@@ -1,13 +1,6 @@
 import { useState } from "react";
-import styled from "styled-components";
 import { Form } from "@redwoodjs/forms";
 import { useForm } from "react-hook-form";
-// import {
-//   div,
-//   EuiDescribedFormGroup,
-//   EuiFieldText,
-//   EuiComboBox,
-// } from "@elastic/eui";
 import CecilianTagInput from "src/components/CecilianTagInput/CecilianTagInput";
 
 const MyProfileAboutYou = () => {
@@ -91,11 +84,5 @@ const MyProfileAboutYou = () => {
     </Form>
   );
 };
-
-const FormGroup = styled.div`
-  .euiDescribedFormGroup__fieldPadding--xsmall {
-    padding-top: 0;
-  }
-`;
 
 export default MyProfileAboutYou;

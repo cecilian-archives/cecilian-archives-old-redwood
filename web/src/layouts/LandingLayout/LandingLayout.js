@@ -1,12 +1,6 @@
 import { useRef } from "react";
 import { useAuth } from "@redwoodjs/auth";
 import { navigate, routes } from "@redwoodjs/router";
-// import {
-//   EuiPage,
-//   EuiPageBody,
-//   EuiPageContent,
-//   EuiPageContentBody,
-// } from "@elastic/eui";
 import animateScrollTo from "animated-scroll-to";
 import HomeHero from "src/components/HomeHero/HomeHero";
 
