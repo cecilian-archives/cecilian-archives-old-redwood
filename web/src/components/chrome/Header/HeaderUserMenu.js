@@ -1,24 +1,13 @@
 import { useState } from "react";
 import { useAuth } from "@redwoodjs/auth";
 import { Link, routes } from "@redwoodjs/router";
-import styled, { useTheme } from "styled-components";
-import {
-  EuiAvatar,
-  EuiFlexGroup,
-  EuiFlexItem,
-  EuiHeaderSectionItemButton,
-  EuiPopover,
-  EuiContextMenuPanel,
-  EuiContextMenuItem,
-  EuiTitle,
-} from "@elastic/eui";
+import tw, { styled } from "twin.macro";
 import { FiUser } from "react-icons/fi";
 import { RiLogoutBoxLine } from "react-icons/ri";
 
 const HeaderUserMenu = () => {
   const id = "headerUserMenu";
   const [isOpen, setIsOpen] = useState(false);
-  const theme = useTheme();
 
   const { currentUser, userMetadata, logOut } = useAuth();
   const user = currentUser?.profile?.picture
@@ -36,54 +25,38 @@ const HeaderUserMenu = () => {
       aria-label="Account menu"
       onClick={() => setIsOpen((current) => !current)}
     >
-      <EuiAvatar
-        name={fullUserName}
-        size="m"
-        color={theme.archive.brightYellow}
-        imageUrl={user.picture}
-      />
+      <div name={fullUserName} size="m" imageUrl={user.picture} />
     </HeaderButton>
   );
 
   const panelTitle = (
-    <EuiFlexGroup
+    <div
       gutterSize="m"
       className="euiHeaderProfile"
       responsive={false}
       alignItems="center"
     >
-      <EuiFlexItem grow={false}>
-        <EuiAvatar
-          name={fullUserName}
-          size="l"
-          color={theme.archive.brightYellow}
-          imageUrl={user.picture}
-        />
-      </EuiFlexItem>
+      <div>
+        <div name={fullUserName} size="l" imageUrl={user.picture} />
+      </div>
 
-      <EuiFlexItem>
-        <EuiTitle size="xs">
-          <UserName>{fullUserName}</UserName>
-        </EuiTitle>
-      </EuiFlexItem>
-    </EuiFlexGroup>
+      <div>
+        <span>{fullUserName}</span>
+      </div>
+    </div>
   );
 
   const items = [
-    <EuiContextMenuItem key="profile" icon={<FiUser />}>
+    <div key="profile" icon={<FiUser />}>
       <StyledLink to={routes.myProfile()}>Profile</StyledLink>
-    </EuiContextMenuItem>,
-    <EuiContextMenuItem
-      key="logout"
-      icon={<RiLogoutBoxLine />}
-      onClick={logOut}
-    >
+    </div>,
+    <div key="logout" icon={<RiLogoutBoxLine />} onClick={logOut}>
       Log Out
-    </EuiContextMenuItem>,
+    </div>,
   ];
 
   return (
-    <EuiPopover
+    <div
       id={id}
       button={button}
       isOpen={isOpen}
@@ -91,22 +64,14 @@ const HeaderUserMenu = () => {
       closePopover={() => setIsOpen(false)}
       panelPaddingSize="none"
     >
-      <EuiContextMenuPanel title={panelTitle} items={items} />
-    </EuiPopover>
+      <div title={panelTitle} items={items} />
+    </div>
   );
 };
 
-const HeaderButton = styled(EuiHeaderSectionItemButton)`
-  height: 60px;
-  min-width: 60px;
-  &:hover,
-  &:focus {
-    background: ${({ theme }) => theme.archive.blueShades[93]};
-  }
-`;
-
-const UserName = styled.h4`
-  text-transform: none;
+const HeaderButton = tw.button`
+  h-16
+  hocus:bg-deepBlue-93
 `;
 
 const StyledLink = styled(Link)`

@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { useQuery, useMutation } from "@redwoodjs/web";
 import { useTheme } from "styled-components";
-import { EuiComboBox, EuiContext } from "@elastic/eui";
+// import { EuiComboBox, EuiContext } from "@elastic/eui";
 
 const formatCase = (str) => {
   const words = str.split(" ");
@@ -146,8 +146,8 @@ const CecilianTagInput = ({ single = false, allowCreation = false }) => {
   };
 
   return (
-    <EuiContext i18n={mappings}>
-      <EuiComboBox
+    <div i18n={mappings}>
+      <div
         placeholder="Type to search"
         async
         isLoading={loading}
@@ -161,7 +161,7 @@ const CecilianTagInput = ({ single = false, allowCreation = false }) => {
         isClearable={false}
         sortMatchesBy="startsWith"
       />
-    </EuiContext>
+    </div>
   );
 };
 

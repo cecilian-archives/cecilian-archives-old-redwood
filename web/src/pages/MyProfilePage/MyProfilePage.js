@@ -1,13 +1,13 @@
 import ChromeLayout from "src/layouts/ChromeLayout/ChromeLayout";
-import {
-  EuiPage,
-  EuiPageBody,
-  EuiPageContent,
-  EuiPageContentBody,
-} from "@elastic/eui";
+// import {
+//   EuiPage,
+//   EuiPageBody,
+//   EuiPageContent,
+//   EuiPageContentBody,
+// } from "@elastic/eui";
 import styled from "styled-components";
 import { ImKey } from "react-icons/im";
-import ResponsiveTabs from "src/components/ResponsiveTabs/ResponsiveTabs";
+import ResponsiveTabs from "src/components/chrome/ResponsiveTabs/ResponsiveTabs";
 import MyProfileCell from "src/components/MyProfileCell/MyProfileCell";
 import MyProfileArchiveTag from "src/components/MyProfileArchiveTag/MyProfileArchiveTag";
 import MyProfileAboutYou from "src/components/MyProfileAboutYou/MyProfileAboutYou";
@@ -45,24 +45,24 @@ export const MyProfile = ({ profile, cecilians, tab }) => {
 
   return (
     <ChromeLayout headerTitle="Your Profile">
-      <EuiPage>
-        <EuiPageBody component="div">
+      <div>
+        <div component="div">
           <PageContent>
-            <EuiPageContentBody>
+            <div>
               <ResponsiveTabs
                 tabs={tabs}
                 selectedTabId={selectedTabId}
                 topLevelRoute="myProfileTab"
               />
-            </EuiPageContentBody>
+            </div>
           </PageContent>
-        </EuiPageBody>
-      </EuiPage>
+        </div>
+      </div>
     </ChromeLayout>
   );
 };
 
-const PageContent = styled(EuiPageContent)`
+const PageContent = styled.div`
   padding: 0;
 `;
 

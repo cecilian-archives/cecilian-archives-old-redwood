@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { EuiTitle } from "@elastic/eui";
 import Logo from "src/assets/svg/logo.svg";
-import AnimatedLogo from "src/components/AnimatedLogo/AnimatedLogo";
+import AnimatedLogo from "src/components/chrome/AnimatedLogo/AnimatedLogo";
 
 const LogoMessage = ({ message, animated }) => {
   return (
@@ -26,7 +25,7 @@ const StaticLogo = styled(Logo)`
   height: 3rem;
 `;
 
-const SpacedTitle = styled(EuiTitle)`
+const SpacedTitle = styled.div`
   margin: ${({ theme }) => theme.euiSizeL};
 `;
 

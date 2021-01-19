@@ -1,13 +1,12 @@
-import styled, { useTheme } from "styled-components";
+import tw, { styled } from "twin.macro";
 import { motion, AnimatePresence } from "framer-motion";
 import { navigate, routes } from "@redwoodjs/router";
-import { EuiIcon, EuiTabs, EuiTab } from "@elastic/eui";
-import useWindowWidth from "src/utils/useWindowWidth";
+// import useWindowWidth from "src/utils/useWindowWidth";
 
 const ResponsiveTabs = ({ tabs, selectedTabId, topLevelRoute }) => {
-  const theme = useTheme();
-  const width = useWindowWidth();
-  const isMobile = width <= theme.archive.breakpoints.m;
+  // const theme = useTheme();
+  // const width = useWindowWidth();
+  const isMobile = false; //width <= theme.archive.breakpoints.m;
 
   const handleTabClick = (tab) => () => {
     navigate(routes[topLevelRoute]({ tab: tab.id }));
@@ -33,7 +32,12 @@ const ResponsiveTabs = ({ tabs, selectedTabId, topLevelRoute }) => {
                     <TabIcon type={tab.icon} />
                     {tab.name}
                   </span>
-                  {isMobile && <EuiIcon type={isSelected ? "" : "arrowDown"} />}
+                  {isMobile && (
+                    <div
+                      data-migration="EuiIcon"
+                      type={isSelected ? "" : "arrowDown"}
+                    />
+                  )}
                 </TabInner>
               </StyledTab>
               {isMobile && (
@@ -72,9 +76,9 @@ const ResponsiveTabs = ({ tabs, selectedTabId, topLevelRoute }) => {
   );
 };
 
-const StyledTabs = styled(EuiTabs)`
+const StyledTabs = styled.div`
   margin: ${({ theme }) => `${theme.euiSizeS} ${theme.euiSizeM} 0`};
-  @media (max-width: ${({ theme }) => theme.euiBreakpoints.m}) {
+  @media (max-width: ${({ theme }) => theme.euiBreakpoints}) {
     margin: 0;
     flex-direction: column;
   }
@@ -84,9 +88,9 @@ const TabWrapper = styled.div`
   overflow: hidden;
 `;
 
-const StyledTab = styled(EuiTab)`
+const StyledTab = styled.div`
   width: 100%;
-  @media (max-width: ${({ theme }) => theme.euiBreakpoints.m}) {
+  @media (max-width: ${({ theme }) => theme.euiBreakpoints}) {
     text-align: left;
   }
 `;
@@ -98,7 +102,7 @@ const TabInner = styled.div`
   align-items: center;
 `;
 
-const TabIcon = styled(EuiIcon)`
+const TabIcon = styled.div`
   margin-right: ${({ theme }) => theme.euiSizeS};
 `;
 

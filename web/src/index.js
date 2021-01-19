@@ -1,19 +1,17 @@
+import ReactDOM from "react-dom";
 import { AuthProvider } from "@redwoodjs/auth";
 import { Auth0Client } from "@auth0/auth0-spa-js";
-import ReactDOM from "react-dom";
 import { RedwoodProvider, FatalErrorBoundary } from "@redwoodjs/web";
 import FatalErrorPage from "src/pages/FatalErrorPage";
+
 import { Provider as ReduxProvider } from "react-redux";
 import { store, persistor } from "./ducks/";
 import { PersistGate } from "redux-persist/integration/react";
-import { ThemeProvider } from "styled-components";
-import { archive } from "./theme";
-import * as euiVars from "@elastic/eui/dist/eui_theme_light.json";
+
+import GlobalStyles from "./GlobalStyles";
+import "./fonts.css";
 
 import Routes from "src/Routes";
-
-import "./scaffold.css";
-import "./euiInterface.css";
 
 const auth0 = new Auth0Client({
   domain: process.env.AUTH0_DOMAIN,
@@ -29,15 +27,14 @@ const auth0 = new Auth0Client({
 
 ReactDOM.render(
   <FatalErrorBoundary page={FatalErrorPage}>
+    <GlobalStyles />
     <ReduxProvider store={store}>
       <AuthProvider client={auth0} type="auth0">
-        <ThemeProvider theme={{ archive, ...euiVars.default }}>
-          <RedwoodProvider>
-            <PersistGate loading={null} persistor={persistor}>
-              <Routes />
-            </PersistGate>
-          </RedwoodProvider>
-        </ThemeProvider>
+        <RedwoodProvider>
+          <PersistGate loading={null} persistor={persistor}>
+            <Routes />
+          </PersistGate>
+        </RedwoodProvider>
       </AuthProvider>
     </ReduxProvider>
   </FatalErrorBoundary>,

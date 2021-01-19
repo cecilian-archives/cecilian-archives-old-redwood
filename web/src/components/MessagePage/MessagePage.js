@@ -1,6 +1,5 @@
 import ChromeLayout from "src/layouts/ChromeLayout/ChromeLayout";
 import LogoMessage from "src/components/LogoMessage/LogoMessage";
-import { EuiText } from "@elastic/eui";
 import styled from "styled-components";
 
 const MessagePage = ({
@@ -13,7 +12,7 @@ const MessagePage = ({
     <ChromeLayout headerTitle={headerTitle} center>
       <Page>
         <LogoMessage animated={animatedLogo} message={messageTitle} />
-        {messageBody && <EuiText>{messageBody}</EuiText>}
+        {messageBody && <span>{messageBody}</span>}
       </Page>
     </ChromeLayout>
   );

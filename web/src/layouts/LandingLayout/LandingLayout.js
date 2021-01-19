@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import { useAuth } from "@redwoodjs/auth";
 import { navigate, routes } from "@redwoodjs/router";
-import {
-  EuiPage,
-  EuiPageBody,
-  EuiPageContent,
-  EuiPageContentBody,
-} from "@elastic/eui";
+// import {
+//   EuiPage,
+//   EuiPageBody,
+//   EuiPageContent,
+//   EuiPageContentBody,
+// } from "@elastic/eui";
 import animateScrollTo from "animated-scroll-to";
 import HomeHero from "src/components/HomeHero/HomeHero";
 
@@ -38,15 +38,7 @@ const LandingLayout = ({ children }) => {
         handleReadMoreClick={handleReadMoreClick}
         handleGetStartedClick={handleGetStartedClick}
       />
-      <EuiPage>
-        <EuiPageBody component="div">
-          <div ref={contentRef}>
-            <EuiPageContent>
-              <EuiPageContentBody>{children}</EuiPageContentBody>
-            </EuiPageContent>
-          </div>
-        </EuiPageBody>
-      </EuiPage>
+      <div ref={contentRef}>{children}</div>
     </>
   );
 };

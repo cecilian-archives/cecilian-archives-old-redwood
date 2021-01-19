@@ -1,11 +1,11 @@
 import { render } from "@redwoodjs/testing";
 
-import LoadingToast from "./LoadingToast";
+import Button from "./Button";
 
-describe("LoadingToast", () => {
+describe("Button", () => {
   it("renders successfully", () => {
     expect(() => {
-      render(<LoadingToast />);
+      render(<Button />);
     }).not.toThrow();
   });
 });
