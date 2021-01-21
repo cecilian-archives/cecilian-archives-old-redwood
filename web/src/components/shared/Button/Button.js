@@ -23,6 +23,9 @@ const Root = styled.button(({ type, size }) => {
     type === "secondary" &&
       tw`border border-brightYellow
       hover:bg-brightYellow focus:ring-brightYellow`,
+    type === "outline" &&
+      tw`border border-deepBlue
+      text-deepBlue hover:bg-deepBlue-10 focus:ring-deepBlue`,
   ];
 });
 

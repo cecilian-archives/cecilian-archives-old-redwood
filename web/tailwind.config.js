@@ -26,6 +26,9 @@ module.exports = {
       },
       deepBlue: {
         // https://github.com/igrmk/blec
+        10: "#eef0f4", // blec f9f9fa 2872af:0.1
+        20: "#e2e6ed", // blec f9f9fa 2872af:0.2
+        30: "#d6dce7", // blec f9f9fa 2872af:0.3
         75: "#8aa2c5", // blec f9f9fa 2872af:0.75
         80: "#7d9ac1", // blec f9f9fa 2872af:0.8
         85: "#6f91bd", // blec f9f9fa 2872af:0.85

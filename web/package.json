@@ -19,7 +19,6 @@
     "@redwoodjs/forms": "^0.23.0",
     "@redwoodjs/router": "^0.23.0",
     "@redwoodjs/web": "^0.23.0",
-    "@tailwindcss/forms": "^0.2.1",
     "animated-scroll-to": "^2.0.12",
     "babel-plugin-styled-components": "^1.11.1",
     "date-fns": "^2.16.1",
@@ -36,6 +35,7 @@
     "twin.macro": "^2.0.8"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.2.1",
     "autoprefixer": "9.8.6",
     "patch-package": "^6.2.2",
     "postcss-loader": "4.0.2",

@@ -23,7 +23,7 @@ export const MyProfile = ({ profile, cecilians, tab }) => {
     {
       id: "contact",
       name: "Contact Details",
-      icon: "email",
+      icon: "envelope",
       content: <p>Email addresses and the like</p>,
     },
     {
@@ -39,19 +39,13 @@ export const MyProfile = ({ profile, cecilians, tab }) => {
 
   return (
     <ChromeLayout headerTitle="Your Profile">
-      <div>
-        <div component="div">
-          <PageContent>
-            <div>
-              <ResponsiveTabs
-                tabs={tabs}
-                selectedTabId={selectedTabId}
-                topLevelRoute="myProfileTab"
-              />
-            </div>
-          </PageContent>
-        </div>
-      </div>
+      <PageContent>
+        <ResponsiveTabs
+          tabs={tabs}
+          selectedTabId={selectedTabId}
+          topLevelRoute="myProfileTab"
+        />
+      </PageContent>
     </ChromeLayout>
   );
 };

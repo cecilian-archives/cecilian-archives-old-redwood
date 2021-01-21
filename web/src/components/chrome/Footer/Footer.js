@@ -1,5 +1,4 @@
 import tw, { styled } from "twin.macro";
-import { transparentize } from "polished";
 import logo1970 from "src/assets/images/cecilian_logo_c1970.jpg";
 import logo1990 from "src/assets/images/cecilian_logo_c1990.jpg";
 import logo2000 from "src/assets/images/cecilian_logo_c2000.jpg";
@@ -35,7 +34,7 @@ const Root = tw.footer`
   border-b-4
   border-brightYellow
   md:flex-col
-  md:h-28
+  md:h-32
 `;
 
 const HelpLink = tw.a`
@@ -48,15 +47,16 @@ const HelpLink = tw.a`
   hover:-translate-y-0.5
   md:text-center
   md:m-4
+  md:mt-0
 `;
 
 const Logos = tw.div`
-flex
-justify-end
-items-center
-md:justify-center
-md:mx-4
-md:my-1
+  flex
+  justify-end
+  items-center
+  md:justify-center
+  md:mx-4
+  md:my-1
 `;
 
 const Logo = styled.img(({ whiteBg }) => [
