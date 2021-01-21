@@ -1,4 +1,4 @@
-import tw, { styled } from "twin.macro";
+import tw from "twin.macro";
 import Logo from "src/assets/svg/logo.svg";
 import AnimatedLogo from "src/components/chrome/AnimatedLogo/AnimatedLogo";
 
@@ -6,9 +6,7 @@ const LogoMessage = ({ message, animated }) => {
   return (
     <Root>
       {animated ? <AnimatedLogo width="3rem" /> : <StaticLogo />}
-      <SpacedTitle>
-        <h3>{message}</h3>
-      </SpacedTitle>
+      <SpacedTitle>{message}</SpacedTitle>
     </Root>
   );
 };
@@ -25,8 +23,10 @@ const StaticLogo = tw(Logo)`
   h-12
 `;
 
-const SpacedTitle = tw.div`
+const SpacedTitle = tw.h3`
   m-4
+  font-title
+  text-xl
 `;
 
 export default LogoMessage;

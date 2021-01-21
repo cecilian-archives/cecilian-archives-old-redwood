@@ -63,7 +63,10 @@ const ResponsiveTabs = ({ tabs, selectedTabId, topLevelRoute }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <ContentWrapper>{selectedTab.content}</ContentWrapper>
+            <ContentWrapper>
+              <TabTitle>{selectedTab.name}</TabTitle>
+              {selectedTab.content}
+            </ContentWrapper>
           </Content>
         </AnimatePresence>
       )}
@@ -72,6 +75,9 @@ const ResponsiveTabs = ({ tabs, selectedTabId, topLevelRoute }) => {
 };
 
 const StyledTabs = styled.div`
+  display: flex;
+  justify-content: space-between;
+  ${tw`mx-6 my-4`}
   margin: ${({ theme }) => `${theme.euiSizeS} ${theme.euiSizeM} 0`};
   @media (max-width: ${({ theme }) => theme.euiBreakpoints}) {
     margin: 0;
@@ -91,6 +97,8 @@ const StyledTab = styled.div`
 `;
 
 const TabInner = styled.div`
+  ${tw`font-body
+  text-base`}
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -103,8 +111,20 @@ const TabIcon = styled.div`
 
 const Content = styled(motion.div)``;
 
-const ContentWrapper = styled.div`
-  padding: ${({ theme }) => `${theme.euiSizeXL} ${theme.euiSizeL}`};
+const ContentWrapper = tw.div`
+  mx-6
+  px-6
+  my-6
+  pt-4
+  pb-10
+  w-full
+  mx-auto
+`;
+
+const TabTitle = tw.h2`
+  font-title
+  text-3xl
+  mb-6
 `;
 
 export default ResponsiveTabs;
