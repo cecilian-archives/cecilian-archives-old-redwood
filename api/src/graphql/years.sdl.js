@@ -14,6 +14,7 @@ export const schema = gql`
 
   type Query {
     years: [Year!]!
+    searchYears(needle: String, skip: Int, take: Int): [Year!]!
     year(id: Int!): Year
   }
 
