@@ -22,12 +22,13 @@ const HomeHero = ({ handleReadMoreClick, handleGetStartedClick }) => {
         transition={{ duration: 0.7, delay: 0.9 }}
       >
         <ButtonGroup>
-          <Button type="secondary" size="large" onClick={handleReadMoreClick}>
+          {/* <Button type="secondary" size="large" onClick={handleReadMoreClick}>
             Read More
           </Button>
           <Button type="primary" size="large" onClick={handleGetStartedClick}>
             Get Started
-          </Button>
+          </Button> */}
+          <HoldingText>Coming Soon</HoldingText>
         </ButtonGroup>
       </Animate>
     </HeroContainer>
@@ -87,6 +88,13 @@ const ButtonGroup = tw.div`
   flex-grow-0
   space-x-12
   md:py-8 md:px-0 md:max-w-full md:flex md:justify-between
+`;
+
+const HoldingText = tw.span`
+  font-body
+  text-center
+  text-white
+  text-2xl
 `;
 
 const Animate = tw(motion.div)`
