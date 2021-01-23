@@ -60,6 +60,4 @@ export const Failure = ({ error }) => (
   />
 );
 
-export const Success = ({ myProfile, cecilians, tab }) => (
-  <MyProfile profile={myProfile} cecilians={cecilians} tab={tab} />
-);
+export const Success = ({ myProfile }) => <MyProfile profile={myProfile} />;

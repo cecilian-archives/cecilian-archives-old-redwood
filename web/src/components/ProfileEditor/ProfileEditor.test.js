@@ -1,11 +1,11 @@
 import { render } from "@redwoodjs/testing";
 
-import ResponsiveTabs from "./ResponsiveTabs";
+import ProfileEditor from "./ProfileEditor";
 
-describe("ResponsiveTabs", () => {
+describe("ProfileEditor", () => {
   it("renders successfully", () => {
     expect(() => {
-      render(<ResponsiveTabs />);
+      render(<ProfileEditor />);
     }).not.toThrow();
   });
 });

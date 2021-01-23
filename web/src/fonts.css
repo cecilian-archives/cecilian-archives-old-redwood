@@ -101,8 +101,5 @@
 }
 
 body {
-  background-color: #5f88b8;
-  /** A little Easter egg for platforms like MacOS
-   *  that support overscrolling.
-   */
+  background-color: #f9f9fa;
 }
