@@ -41,7 +41,7 @@ export const Loading = () => (
   <MessagePage
     animatedLogo
     headerTitle="Your Profile"
-    messageTitle="Getting data..."
+    messageTitle="Retrieving data..."
   />
 );
 

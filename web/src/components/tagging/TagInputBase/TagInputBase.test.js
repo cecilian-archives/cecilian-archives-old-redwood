@@ -1,11 +1,11 @@
 import { render } from "@redwoodjs/testing";
 
-import TagInput from "./TagInput";
+import TagInputBase from "./TagInputBase";
 
-describe("TagInput", () => {
+describe("TagInputBase", () => {
   it("renders successfully", () => {
     expect(() => {
-      render(<TagInput />);
+      render(<TagInputBase />);
     }).not.toThrow();
   });
 });

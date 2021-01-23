@@ -1,8 +1,8 @@
 import { useState } from "react";
 import tw from "twin.macro";
 import { Form, Label, TextField } from "@redwoodjs/forms";
-import CecilianTagInput from "src/components/CecilianTagInput/CecilianTagInput";
-import TagInput from "src/components/shared/TagInput/TagInput";
+import TagInputField from "src/components/tagging/TagInputField/TagInputField";
+import TagInputBase from "src/components/tagging/TagInputBase/TagInputBase";
 import Button from "src/components/shared/Button/Button";
 
 const ProfileEditor = ({ profile }) => {
@@ -28,7 +28,7 @@ const ProfileEditor = ({ profile }) => {
       <CardCol>
         <Fields>
           <FieldLabel>Your Archive Tag</FieldLabel>
-          <CecilianTagInput single allowCreation />
+          <TagInputField type="cecilian" single allowCreation />
           <FieldHelp>
             If a tag exists for your name, select it here to link it to your
             profile. If you don't have an archive tag yet, you'll be prompted to
@@ -67,7 +67,7 @@ const ProfileEditor = ({ profile }) => {
             defaultValue={profile.lastNames}
           />
           <FieldLabel>Other Names</FieldLabel>
-          <TagInput
+          <TagInputBase
             tagList={otherNames}
             setTagList={setOtherNames}
             inputValue={otherNamesInput}
@@ -92,14 +92,14 @@ const ProfileEditor = ({ profile }) => {
       </GroupCol>
       <CardCol>
         <Fields>
-          <FieldLabel>Shows</FieldLabel>
-          <CecilianTagInput />
+          <FieldLabel>Events</FieldLabel>
+          <TagInputField type="event" />
           <FieldHelp>Search for shows by name or year</FieldHelp>
           <FieldLabel>Years</FieldLabel>
-          <CecilianTagInput />
+          <TagInputField type="year" />
           <FieldHelp>Search for years (AGM to AGM)</FieldHelp>
           <FieldLabel>Roles</FieldLabel>
-          <CecilianTagInput />
+          <TagInputField type="role" />
           <FieldHelp>Search for society or performance roles</FieldHelp>
         </Fields>
         <SaveBar>
