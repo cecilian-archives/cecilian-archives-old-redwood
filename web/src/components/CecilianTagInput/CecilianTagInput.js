@@ -76,10 +76,13 @@ const creationMutation = gql`
   }
 `;
 
-const formatCecilianAsOption = (cecilian) => ({
-  key: cecilian.slug,
+const formatCecilianAsOption = (cecilian, selectedOptions = []) => ({
+  key: cecilian?.slug,
   label: formatLabel(cecilian),
   picture: cecilian?.user?.picture,
+  selected: selectedOptions
+    .map((option) => option.key)
+    .includes(cecilian?.slug),
 });
 
 const CecilianTagInput = ({ single = false, allowCreation = false }) => {
@@ -94,7 +97,9 @@ const CecilianTagInput = ({ single = false, allowCreation = false }) => {
   const [selectedOptions, setSelected] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
-  const options = (data?.searchCecilians || []).map(formatCecilianAsOption);
+  const options = (data?.searchCecilians || []).map((cecilian) =>
+    formatCecilianAsOption(cecilian, selectedOptions)
+  );
 
   const onSearchChange = useCallback(
     (searchValue) => {
@@ -130,6 +135,9 @@ const CecilianTagInput = ({ single = false, allowCreation = false }) => {
       setInputValue={setInputValue}
       placeholder="Type to search"
       isLoading={loading}
+      isCreating={mutateLoading}
+      loadError={error}
+      createError={mutateError}
       searchCallback={onSearchChange}
       onCreate={allowCreation ? onCreateOption : undefined}
       singleSelection={single}

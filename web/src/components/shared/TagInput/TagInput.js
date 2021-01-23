@@ -1,7 +1,10 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import tw, { styled } from "twin.macro";
 import Tag from "../Tag/Tag";
 import useClickOutside from "src/utils/useClickOutside";
+import Logo from "src/assets/svg/logo.svg";
+import AnimatedLogo from "src/components/chrome/AnimatedLogo/AnimatedLogo";
+import { ImPriceTag } from "react-icons/im";
 
 const OptionIcon = ({ image, Fallback }) => {
   if (image) {
@@ -45,8 +48,12 @@ const TagInput = ({
   options,
   fallbackIcon,
   isLoading,
+  isCreating,
+  loadError,
+  createError,
   searchCallback,
   onCreate,
+  freeTagging = false,
   singleSelection,
   tagType,
 }) => {
@@ -54,6 +61,12 @@ const TagInput = ({
   const dropdownRef = useRef();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   useClickOutside(dropdownRef, dropdownIsOpen, () => setDropdownIsOpen(false));
+
+  const [showErrorMessage, setShowErrorMessage] = useState(true);
+  useEffect(() => {
+    const id = setTimeout(() => setShowErrorMessage(false), 5000);
+    return () => clearTimeout(id);
+  }, [showErrorMessage, createError]);
 
   const updateTagList = (tagString) => {
     setTagList([...new Set([...tagList, tagString])]);
@@ -73,7 +86,7 @@ const TagInput = ({
     }
     if (event.key === "Enter" && val) {
       event.preventDefault();
-      onCreate ? searchCallback && searchCallback(val) : updateTagList(val);
+      freeTagging ? updateTagList(val) : searchCallback && searchCallback(val);
     }
   };
 
@@ -96,7 +109,7 @@ const TagInput = ({
             ? null
             : tagList.map((tag, idx) => (
                 <Tag
-                  key={tag}
+                  key={tag.key || tag}
                   type={tagType}
                   icon={tag?.picture || fallbackIcon}
                   label={tag?.label || tag}
@@ -108,43 +121,80 @@ const TagInput = ({
             type="text"
             value={inputValue}
             name={name}
-            placeholder={tagList.length === 0 ? placeholder : ""}
+            placeholder={
+              !singleSelection || tagList.length === 0 ? placeholder : ""
+            }
             autoComplete="off"
             onKeyDown={inputKeyDown}
             onChange={onInputChange}
           />
+          {isCreating && (
+            <CreatingIcon>
+              <AnimatedLogo width="1.5em" />
+            </CreatingIcon>
+          )}
         </Field>
       </Root>
+      {createError && showErrorMessage && (
+        <ErrorMessage>
+          Couldn't create a tag{inputValue ? ` for ${inputValue}` : ""}. Are you
+          offline?
+        </ErrorMessage>
+      )}
       {options && dropdownIsOpen && inputValue !== "" && (
         <Dropdown>
           <OptionList>
             {isLoading ? (
               <Option dim noHighlight>
+                <LoadingIcon>
+                  <AnimatedLogo width="1.5em" />
+                </LoadingIcon>
                 Loading options...
+              </Option>
+            ) : loadError ? (
+              <Option error noHighlight>
+                <LoadingIcon>
+                  <StaticLogo />
+                </LoadingIcon>
+                Could not load options. Press Enter to try again.
               </Option>
             ) : options.length === 0 ? (
               <Option
+                actionable={Boolean(onCreate)}
                 noHighlight={!Boolean(onCreate)}
-                onClick={() => onCreate(inputValue)}
+                onClick={() => {
+                  onCreate(inputValue);
+                  setDropdownIsOpen(false);
+                }}
               >
+                <OptionIcon Fallback={onCreate ? ImPriceTag : fallbackIcon} />
                 {onCreate ? `Create a tag for ${inputValue}` : "No results"}
               </Option>
             ) : (
-              options.map((option) => (
-                <Option
-                  key={option.key}
-                  onClick={() => {
-                    setTagList((current) =>
-                      singleSelection ? [option] : [...current, option]
-                    );
-                    setDropdownIsOpen(false);
-                    setInputValue("");
-                  }}
-                >
-                  <OptionIcon image={option.picture} Fallback={fallbackIcon} />
-                  {option.label}
-                </Option>
-              ))
+              options.map((option) => {
+                const isAlreadySelected = !singleSelection && option.selected;
+                return (
+                  <Option
+                    key={option.key}
+                    fade={isAlreadySelected}
+                    noHighlight={isAlreadySelected}
+                    onClick={() => {
+                      if (isAlreadySelected) return false;
+                      setTagList((current) =>
+                        singleSelection ? [option] : [...current, option]
+                      );
+                      setDropdownIsOpen(false);
+                      setInputValue("");
+                    }}
+                  >
+                    <OptionIcon
+                      image={option.picture}
+                      Fallback={fallbackIcon}
+                    />
+                    {option.label}
+                  </Option>
+                );
+              })
             )}
           </OptionList>
         </Dropdown>
@@ -221,9 +271,16 @@ const OptionList = tw.ul`
   focus:outline-none
 `;
 
-const Option = styled.li(({ dim, noHighlight }) => [
-  dim ? tw`text-grey` : tw`text-grey-darker`,
+const Option = styled.li(({ dim, actionable, error, noHighlight, fade }) => [
+  dim
+    ? tw`text-grey`
+    : actionable
+    ? tw`text-deepBlue`
+    : error
+    ? tw`text-deepRed`
+    : tw`text-grey-darker`,
   noHighlight ? tw`select-none` : tw`hover:bg-grey-lighter cursor-pointer`,
+  fade && tw`opacity-50`,
   tw`
     relative
     p-2
@@ -232,5 +289,35 @@ const Option = styled.li(({ dim, noHighlight }) => [
     items-center
 `,
 ]);
+
+const LoadingIcon = tw.div`
+  w-6
+  ml-1
+  mr-4
+`;
+
+const CreatingIcon = tw.div`
+  w-6
+  h-full
+  absolute
+  right-4
+  z-10
+  flex
+  flex-col
+  justify-center
+  items-center
+`;
+
+const StaticLogo = tw(Logo)`
+  w-6
+  h-6
+`;
+
+const ErrorMessage = tw.span`
+  block
+  font-body
+  text-deepRed
+  mt-1
+`;
 
 export default TagInput;

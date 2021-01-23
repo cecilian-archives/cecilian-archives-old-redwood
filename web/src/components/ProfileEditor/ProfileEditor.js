@@ -75,6 +75,7 @@ const ProfileEditor = ({ profile }) => {
             name="otherNames"
             placeholder="Prisoner 24601"
             showOptions={false}
+            freeTagging={true}
           />
           <FieldHelp>
             Names before marriage, nicknames, etc. Add as many as you like, in
@@ -92,20 +93,14 @@ const ProfileEditor = ({ profile }) => {
       <CardCol>
         <Fields>
           <FieldLabel>Shows</FieldLabel>
-          <TextInput
-            name="showTags"
-            placeholder="Search for shows by name or year"
-          />
+          <CecilianTagInput />
+          <FieldHelp>Search for shows by name or year</FieldHelp>
           <FieldLabel>Years</FieldLabel>
-          <TextInput
-            name="yearTags"
-            placeholder="Search for years (AGM to AGM)"
-          />
+          <CecilianTagInput />
+          <FieldHelp>Search for years (AGM to AGM)</FieldHelp>
           <FieldLabel>Roles</FieldLabel>
-          <TextInput
-            name="roleTags"
-            placeholder="Search for society or performance roles"
-          />
+          <CecilianTagInput />
+          <FieldHelp>Search for society or performance roles</FieldHelp>
         </Fields>
         <SaveBar>
           <Button type="primary">Save</Button>
