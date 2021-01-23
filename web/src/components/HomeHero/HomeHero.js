@@ -1,3 +1,4 @@
+import { useLayoutEffect } from "react";
 import tw, { styled, theme } from "twin.macro";
 import { motion } from "framer-motion";
 import Button from "src/components/shared/Button/Button";
@@ -5,6 +6,11 @@ import libraryImage from "src/assets/images/unsplash-PkbZahEG2Ng.jpg";
 import Logo from "src/assets/svg/logo.svg";
 
 const HomeHero = ({ handleReadMoreClick, handleGetStartedClick }) => {
+  useLayoutEffect(() => {
+    // See https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }, []);
   return (
     <HeroContainer>
       <Animate
@@ -53,6 +59,8 @@ const HeroContainer = styled.div`
     ${theme`colors.deepBlue.heroTop`}
   ),
   url(${libraryImage});
+  min-height: calc(var(--vh, 1vh) * 100);
+  /* See https://css-tricks.com/the-trick-to-viewport-units-on-mobile/ */
 `;
 
 const SizedLogo = styled(Logo)`
