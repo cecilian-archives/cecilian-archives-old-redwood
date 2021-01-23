@@ -5,8 +5,9 @@ import useClickOutside from "src/utils/useClickOutside";
 import Logo from "src/assets/svg/logo.svg";
 import AnimatedLogo from "src/components/chrome/AnimatedLogo/AnimatedLogo";
 import { ImPriceTag } from "react-icons/im";
+import tagColorMap from "../tagColorMap";
 
-const OptionIcon = ({ image, Fallback }) => {
+const OptionIcon = ({ image, Fallback, tagType }) => {
   if (image) {
     return (
       <ImageWrapper>
@@ -15,23 +16,24 @@ const OptionIcon = ({ image, Fallback }) => {
     );
   }
   if (Fallback) {
+    const color = tagType ? tagColorMap[tagType].icon : tw`text-deepBlue`;
     return (
-      <ImageWrapper>
+      <ImageWrapper color={color}>
         <Fallback size="1.25em" /> {/* i.e. w-6 */}
       </ImageWrapper>
     );
   }
   return null;
 };
-const ImageWrapper = tw.div`
-  w-6
+const ImageWrapper = styled.div(({ color }) => [
+  color,
+  tw`w-6
   flex
   justify-center
   items-center
-  text-deepBlue
   ml-1
-  mr-4
-`;
+  mr-4`,
+]);
 const Image = tw.img`
   w-6
   h-6
@@ -60,7 +62,10 @@ const TagInput = ({
   const inputRef = useRef();
   const dropdownRef = useRef();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-  useClickOutside(dropdownRef, dropdownIsOpen, () => setDropdownIsOpen(false));
+  useClickOutside(dropdownRef, dropdownIsOpen, () => {
+    setDropdownIsOpen(false);
+    singleSelection && setInputValue("");
+  });
 
   const [showErrorMessage, setShowErrorMessage] = useState(true);
   useEffect(() => {
@@ -167,7 +172,10 @@ const TagInput = ({
                   setDropdownIsOpen(false);
                 }}
               >
-                <OptionIcon Fallback={onCreate ? ImPriceTag : fallbackIcon} />
+                <OptionIcon
+                  Fallback={onCreate ? ImPriceTag : fallbackIcon}
+                  tagType={tagType}
+                />
                 {onCreate ? `Create a tag for ${inputValue}` : "No results"}
               </Option>
             ) : (
@@ -190,6 +198,7 @@ const TagInput = ({
                     <OptionIcon
                       image={option.picture}
                       Fallback={fallbackIcon}
+                      tagType={tagType}
                     />
                     {option.label}
                   </Option>

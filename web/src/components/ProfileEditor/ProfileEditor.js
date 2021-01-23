@@ -93,13 +93,13 @@ const ProfileEditor = ({ profile }) => {
       <CardCol>
         <Fields>
           <FieldLabel>Events</FieldLabel>
-          <TagInputField type="event" />
+          <TagInputField type="cecilian" /> {/* TODO: type="event" */}
           <FieldHelp>Search for shows by name or year</FieldHelp>
           <FieldLabel>Years</FieldLabel>
           <TagInputField type="year" />
           <FieldHelp>Search for years (AGM to AGM)</FieldHelp>
           <FieldLabel>Roles</FieldLabel>
-          <TagInputField type="role" />
+          <TagInputField type="cecilian" /> {/* TODO: type="role" */}
           <FieldHelp>Search for society or performance roles</FieldHelp>
         </Fields>
         <SaveBar>

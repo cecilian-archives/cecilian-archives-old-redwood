@@ -5,6 +5,21 @@ export const years = () => {
   return db.year.findMany();
 };
 
+export const searchYears = ({ needle, skip, take }) => {
+  if (!needle) return years();
+  return db.year.findMany({
+    where: {
+      name: {
+        contains: needle,
+        mode: "insensitive",
+      },
+    },
+    orderBy: [{ name: "asc" }],
+    skip: skip || undefined,
+    take: take || undefined,
+  });
+};
+
 export const year = ({ id }) => {
   return db.year.findUnique({
     where: { id },

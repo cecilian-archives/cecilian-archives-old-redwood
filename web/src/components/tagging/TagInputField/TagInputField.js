@@ -1,29 +1,30 @@
 import { useState, useCallback } from "react";
 import { useQuery, useMutation } from "@redwoodjs/web";
 import TagInputBase from "src/components/tagging/TagInputBase/TagInputBase";
-import { cecilianSearchQuery, cecilianCreationMutation } from "../gql/cecilian";
-import { FaRegUserCircle } from "react-icons/fa";
-import formatCase from "../helpers/formatCase";
-import formatCecilianAsOption from "../helpers/formatCecilianAsOption";
+import tagTypeMap from "../tagTypeMap";
 
-const TagInputField = ({
-  type = "cecilian",
-  single = false,
-  allowCreation = false,
-}) => {
-  const { loading, error, data, refetch } = useQuery(cecilianSearchQuery, {
+const TagInputField = ({ type, single = false, allowCreation = false }) => {
+  const {
+    searchQuery,
+    creationMutation,
+    optionFormatter,
+    inputFormatter,
+    fallbackIcon,
+  } = tagTypeMap[type];
+
+  const { loading, error, data, refetch } = useQuery(searchQuery, {
     notifyOnNetworkStatusChange: true,
   });
   const [
     createTag,
     { loading: mutateLoading, error: mutateError },
-  ] = useMutation(cecilianCreationMutation, { awaitRefetchQueries: true });
+  ] = useMutation(creationMutation, { awaitRefetchQueries: true });
 
   const [selectedOptions, setSelected] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
   const options = (data?.searchResults || []).map((result) =>
-    formatCecilianAsOption(result, selectedOptions)
+    optionFormatter(result, selectedOptions)
   );
 
   const onSearchChange = useCallback(
@@ -39,14 +40,12 @@ const TagInputField = ({
       data: { newEntity },
     } = await createTag({
       variables: {
-        input: {
-          displayName: formatCase(value),
-        },
+        input: inputFormatter(value),
       },
       refetchQueries: [{ query: searchQuery, variables: { needle: value } }],
     });
     if (!newEntity) return false;
-    const newOption = formatCecilianAsOption(newEntity);
+    const newOption = optionFormatter(newEntity);
     setInputValue("");
     setSelected((current) => (single ? [newOption] : [...current, newOption]));
   };
@@ -67,7 +66,7 @@ const TagInputField = ({
       onCreate={allowCreation ? onCreateOption : undefined}
       singleSelection={single}
       tagType={type}
-      fallbackIcon={FaRegUserCircle}
+      fallbackIcon={fallbackIcon}
     />
   );
 };
