@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useAuth } from "@redwoodjs/auth";
 import { Link, routes } from "@redwoodjs/router";
-import tw, { styled } from "twin.macro";
-import { FiUser } from "react-icons/fi";
-import { RiLogoutBoxLine } from "react-icons/ri";
+import tw from "twin.macro";
+import { FaRegUserCircle } from "react-icons/fa";
+import { RiLogoutCircleLine } from "react-icons/ri";
+import useClickOutside from "src/utils/useClickOutside";
 
 const HeaderUserMenu = () => {
-  const id = "headerUserMenu";
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef();
+  useClickOutside(dropdownRef, isOpen, () => setIsOpen(false));
 
   const { currentUser, userMetadata, logOut } = useAuth();
   const user = currentUser?.profile?.picture
@@ -17,60 +19,110 @@ const HeaderUserMenu = () => {
     user.lastNames || user.family_name
   }`;
 
-  const button = (
-    <HeaderButton
-      aria-controls={id}
-      aria-expanded={isOpen}
-      aria-haspopup="true"
-      aria-label="Account menu"
+  return (
+    <Root
+      ref={dropdownRef}
+      className="group"
       onClick={() => setIsOpen((current) => !current)}
     >
-      <div name={fullUserName} size="m" imageUrl={user.picture} />
-    </HeaderButton>
-  );
-
-  const panelTitle = (
-    <div gutterSize="m" responsive={false} alignItems="center">
-      <div>
-        <div name={fullUserName} size="l" imageUrl={user.picture} />
-      </div>
-
-      <div>
-        <span>{fullUserName}</span>
-      </div>
-    </div>
-  );
-
-  const items = [
-    <div key="profile" icon={<FiUser />}>
-      <StyledLink to={routes.myProfile()}>Profile</StyledLink>
-    </div>,
-    <div key="logout" icon={<RiLogoutBoxLine />} onClick={logOut}>
-      Log Out
-    </div>,
-  ];
-
-  return (
-    <div
-      id={id}
-      button={button}
-      isOpen={isOpen}
-      anchorPosition="downCenter"
-      closePopover={() => setIsOpen(false)}
-      panelPaddingSize="none"
-    >
-      <div title={panelTitle} items={items} />
-    </div>
+      <Container>
+        <Button>
+          <Avatar src={user.picture} />
+        </Button>
+      </Container>
+      {isOpen && (
+        <Panel onClick={(event) => event.stopPropagation()}>
+          <PanelHeader>{fullUserName}</PanelHeader>
+          <PanelItem onClick={() => setIsOpen(false)}>
+            <StyledLink to={routes.myProfileEdit()}>
+              <FaRegUserCircle />
+              <span>Edit Profile</span>
+            </StyledLink>
+          </PanelItem>
+          <PanelItem onClick={logOut}>
+            <RiLogoutCircleLine />
+            <span>Log Out</span>
+          </PanelItem>
+        </Panel>
+      )}
+    </Root>
   );
 };
 
-const HeaderButton = tw.button`
-  h-16
-  hocus:bg-deepBlue-93
+const Root = tw.div`
+  relative
+  w-16
+  h-full
 `;
 
-const StyledLink = styled(Link)`
-  color: inherit;
+const Container = tw.div`
+  h-full
+  flex
+  flex-col
+  items-center
+  justify-center
+  cursor-pointer
+`;
+
+const Button = tw.button`
+  w-10
+  h-10
+  rounded-full
+  bg-brightYellow
+  hocus:outline-none
+  group-hocus:outline-none
+  group-hocus:ring-2
+  group-hocus:ring-brightYellow
+`;
+
+const Avatar = tw.img`
+  w-full
+  rounded-full
+`;
+
+const Panel = tw.div`
+  absolute
+  right-0
+  z-10
+  w-64
+  -mt-1
+  mr-4
+  bg-white
+  rounded-md
+  shadow-lg
+  ring-1
+  ring-grey-light
+`;
+
+const PanelHeader = tw.div`
+  font-body
+  font-bold
+  text-lg
+  text-grey-darker
+  pb-2
+  pt-3
+  px-4
+`;
+
+const PanelItem = tw.div`
+  flex
+  justify-start
+  items-center
+  space-x-4
+  px-6
+  py-3
+  last:pb-4
+  font-body
+  text-grey-darker
+  cursor-pointer
+  hover:bg-grey-lighter
+`;
+
+const StyledLink = tw(Link)`
+  flex
+  justify-start
+  items-center
+  space-x-4
 `;
 
 export default HeaderUserMenu;
