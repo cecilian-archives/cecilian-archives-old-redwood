@@ -1,11 +1,11 @@
 import { render } from "@redwoodjs/testing";
 
-import CecilianTagInput from "./CecilianTagInput";
+import TagInputField from "./TagInputField";
 
-describe("CecilianTagInput", () => {
+describe("TagInputField", () => {
   it("renders successfully", () => {
     expect(() => {
-      render(<CecilianTagInput />);
+      render(<TagInputField />);
     }).not.toThrow();
   });
 });
