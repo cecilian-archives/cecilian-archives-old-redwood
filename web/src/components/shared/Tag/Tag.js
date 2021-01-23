@@ -3,22 +3,57 @@ import tw, { styled } from "twin.macro";
 const typeColorMap = {
   cecilian: {
     root: tw`bg-transparent border-deepGreen`,
+    icon: tw`text-deepGreen`,
     label: tw`text-deepGreen`,
     button: tw`bg-deepGreen`,
     path: tw`text-white`,
   },
   default: {
     root: tw`bg-transparent border-grey`,
+    icon: tw`text-grey-darker`,
     label: tw`text-grey-darker`,
     button: tw`bg-deepBlue-85`,
     path: tw`text-white`,
   },
 };
 
+const IconDisplay = ({ Icon, color }) => {
+  if (typeof Icon === "string") {
+    return (
+      <ImageWrapper>
+        <Image src={Icon} />
+      </ImageWrapper>
+    );
+  }
+  if (Icon) {
+    return (
+      <ImageWrapper color={color}>
+        <Icon size="1em" /> {/* i.e. w-4 */}
+      </ImageWrapper>
+    );
+  }
+  return null;
+};
+const ImageWrapper = styled.div(({ color }) => [
+  tw`w-4
+  flex
+  justify-center
+  items-center
+  text-deepBlue
+  mr-2`,
+  color,
+]);
+const Image = tw.img`
+  w-4
+  h-4
+  rounded-full
+`;
+
 const Tag = ({ label, type, icon, remove }) => {
   const colors = typeColorMap[type] || typeColorMap.default;
   return (
     <Root $color={colors.root}>
+      {icon && <IconDisplay Icon={icon} color={colors.icon} />}
       <Label $color={colors.label}>{label}</Label>
       <Button type="button" $color={colors.button} onClick={remove}>
         <svg
@@ -63,7 +98,7 @@ const Button = styled.button(({ $color }) => [
   flex
   justify-center
   items-center
-  ml-3
+  ml-4
   cursor-pointer`,
 ]);
 

@@ -1,14 +1,15 @@
 import { useState } from "react";
-import tw, { styled } from "twin.macro";
+import tw from "twin.macro";
 import { Form, Label, TextField } from "@redwoodjs/forms";
 import CecilianTagInput from "src/components/CecilianTagInput/CecilianTagInput";
 import TagInput from "src/components/shared/TagInput/TagInput";
 import Button from "src/components/shared/Button/Button";
 
-const MyProfileAboutYou = ({ profile, cecilians }) => {
+const ProfileEditor = ({ profile }) => {
   const [otherNames, setOtherNames] = useState(
     profile.otherNames ? profile.otherNames.split("|") : []
   );
+  const [otherNamesInput, setOtherNamesInput] = useState("");
 
   const onSubmit = (data) => {
     console.info(data);
@@ -30,7 +31,8 @@ const MyProfileAboutYou = ({ profile, cecilians }) => {
           <CecilianTagInput single allowCreation />
           <FieldHelp>
             If a tag exists for your name, select it here to link it to your
-            profile. If you don't have an archive tag yet, search to create one.
+            profile. If you don't have an archive tag yet, you'll be prompted to
+            create one.
           </FieldHelp>
         </Fields>
         <SaveBar>
@@ -68,13 +70,11 @@ const MyProfileAboutYou = ({ profile, cecilians }) => {
           <TagInput
             tagList={otherNames}
             setTagList={setOtherNames}
+            inputValue={otherNamesInput}
+            setInputValue={setOtherNamesInput}
             name="otherNames"
             placeholder="Prisoner 24601"
-            // isClearable={false}
-            // onCreateOption={(value) =>
-            //   setOtherNames((current) => [...current, { label: value }])
-            // }
-            // onChange={(values) => setOtherNames(values)}
+            showOptions={false}
           />
           <FieldHelp>
             Names before marriage, nicknames, etc. Add as many as you like, in
@@ -209,6 +209,7 @@ const Fields = tw.div`
 const FieldLabel = tw(Label)`
   font-body
   text-base
+  text-grey-darker
   first:mt-1
   mt-4
   mb-1
@@ -229,7 +230,7 @@ const FieldHelp = tw.span`
   font-body
   text-base
   max-w-prose
-  text-grey-dark
+  text-grey
   mt-1
 `;
 
@@ -245,4 +246,4 @@ const SaveBar = tw.div`
   rounded-lg
 `;
 
-export default MyProfileAboutYou;
+export default ProfileEditor;

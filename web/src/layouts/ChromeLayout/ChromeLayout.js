@@ -29,7 +29,10 @@ const Chrome = tw.div`
 
 const Main = styled.main(({ center }) => [
   tw`flex-grow
-  bg-grey-lighter`,
+  bg-grey-lighter
+  py-12
+  md:py-6
+  px-4`,
   center &&
     tw`
     flex

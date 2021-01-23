@@ -21,7 +21,7 @@ const Routes = () => {
       </Private>
 
       <Private unauthenticated="authKey" role="verifiedCecilian">
-        <Route path="/cecilians/me/{tab}" page={MyProfilePage} name="myProfileTab" />
+        <Route path="/cecilians/me/edit" page={MyProfilePage} name="myProfileEdit" />
         <Route path="/cecilians/me" page={MyProfilePage} name="myProfile" />
       </Private>
     </Router>

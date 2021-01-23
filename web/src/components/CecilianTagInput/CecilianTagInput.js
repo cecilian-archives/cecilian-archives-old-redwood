@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { useQuery, useMutation } from "@redwoodjs/web";
-import { useTheme } from "styled-components";
+import TagInput from "src/components/shared/TagInput/TagInput";
+import { FaRegUserCircle } from "react-icons/fa";
 
 const formatCase = (str) => {
   const words = str.split(" ");
@@ -52,49 +53,48 @@ const searchQuery = gql`
   }
 `;
 
-// const creationMutation = gql`
-//   mutation CreateCecilianMutation($input: CreateCecilianInput!) {
-//     createCecilian(input: $input) {
-//       user {
-//         picture
-//       }
-//       slug
-//       displayName
-//       otherNames
-//       tags {
-//         tag {
-//           id
-//           type
-//           year {
-//             slug
-//             name
-//           }
-//         }
-//       }
-//     }
-//   }
-// `;
+const creationMutation = gql`
+  mutation CreateCecilianMutation($input: CreateCecilianInput!) {
+    createCecilian(input: $input) {
+      user {
+        picture
+      }
+      slug
+      displayName
+      otherNames
+      tags {
+        tag {
+          id
+          type
+          year {
+            slug
+            name
+          }
+        }
+      }
+    }
+  }
+`;
+
+const formatCecilianAsOption = (cecilian) => ({
+  key: cecilian.slug,
+  label: formatLabel(cecilian),
+  picture: cecilian?.user?.picture,
+});
 
 const CecilianTagInput = ({ single = false, allowCreation = false }) => {
-  const theme = useTheme();
   const { loading, error, data, refetch } = useQuery(searchQuery, {
     notifyOnNetworkStatusChange: true,
   });
-  // const [
-  //   createCecilianTag,
-  //   { loading: mutateLoading, error: mutateError },
-  // ] = useMutation(creationMutation, { awaitRefetchQueries: true });
+  const [
+    createCecilianTag,
+    { loading: mutateLoading, error: mutateError },
+  ] = useMutation(creationMutation, { awaitRefetchQueries: true });
 
   const [selectedOptions, setSelected] = useState([]);
-  const onChange = (selectedOptions) => {
-    setSelected(selectedOptions);
-  };
+  const [inputValue, setInputValue] = useState("");
 
-  const options = (data?.searchCecilians || []).map((cecilian) => ({
-    key: cecilian.slug,
-    label: formatLabel(cecilian),
-    color: theme.archive.deepGreen,
-  }));
+  const options = (data?.searchCecilians || []).map(formatCecilianAsOption);
 
   const onSearchChange = useCallback(
     (searchValue) => {
@@ -103,54 +103,38 @@ const CecilianTagInput = ({ single = false, allowCreation = false }) => {
     [refetch]
   );
 
-  const onCreateOption = async (searchValue, flattenedOptions = []) => {
-    const normalize = (str) => str.trim().toLowerCase();
-    const normalizedSearchValue = normalize(searchValue);
-    if (!normalizedSearchValue) return false;
-
-    if (
-      flattenedOptions.findIndex(
-        (option) => normalize(option.label) === normalizedSearchValue
-      ) === -1
-    ) {
-      // const {
-      //   data: { createCecilian: newCecilian },
-      // } = await createCecilianTag({
-      //   variables: {
-      //     input: {
-      //       displayName: formatCase(searchValue),
-      //     },
-      //   },
-      //   refetchQueries: [
-      //     { query: searchQuery, variables: { needle: searchValue } },
-      //   ],
-      // });
-      // if (!newCecilian) return false;
-      const newOption = {
-        key: null,
-        label: formatCase(searchValue),
-        color: theme.archive.deepGreen,
-      };
-      setSelected((current) =>
-        single ? [newOption] : [...current, newOption]
-      );
-    }
+  const onCreateOption = async (value) => {
+    if (!value.trim()) return false;
+    const {
+      data: { createCecilian: newCecilian },
+    } = await createCecilianTag({
+      variables: {
+        input: {
+          displayName: formatCase(value),
+        },
+      },
+      refetchQueries: [{ query: searchQuery, variables: { needle: value } }],
+    });
+    if (!newCecilian) return false;
+    const newOption = formatCecilianAsOption(newCecilian);
+    setInputValue("");
+    setSelected((current) => (single ? [newOption] : [...current, newOption]));
   };
 
   return (
-    <div
-      placeholder="Type to search"
-      async
-      isLoading={loading}
+    <TagInput
       options={options}
-      selectedOptions={selectedOptions}
+      tagList={selectedOptions}
+      setTagList={setSelected}
+      inputValue={inputValue}
+      setInputValue={setInputValue}
+      placeholder="Type to search"
+      isLoading={loading}
+      searchCallback={onSearchChange}
+      onCreate={allowCreation ? onCreateOption : undefined}
       singleSelection={single}
-      onChange={onChange}
-      onSearchChange={onSearchChange}
-      onCreateOption={allowCreation ? onCreateOption : undefined}
-      customOptionText="Add a tag for {searchValue}"
-      isClearable={false}
-      sortMatchesBy="startsWith"
+      tagType="cecilian"
+      fallbackIcon={FaRegUserCircle}
     />
   );
 };
