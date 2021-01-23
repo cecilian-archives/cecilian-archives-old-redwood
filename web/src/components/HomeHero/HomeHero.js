@@ -207,6 +207,13 @@ const HoldingText = tw.span`
   text-2xl
 `;
 
+const HoldingText = tw.span`
+  font-body
+  text-center
+  text-white
+  text-2xl
+`;
+
 const Animate = tw(motion.div)`
   flex
   flex-col
