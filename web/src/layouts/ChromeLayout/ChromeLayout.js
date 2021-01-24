@@ -32,7 +32,8 @@ const Main = styled.main(({ center }) => [
   bg-grey-lighter
   py-12
   md:py-6
-  px-4`,
+  px-4
+  md:px-3`,
   center &&
     tw`
     flex
