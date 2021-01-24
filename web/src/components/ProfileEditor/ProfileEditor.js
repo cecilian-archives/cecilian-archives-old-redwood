@@ -162,6 +162,7 @@ const GroupCol = tw.div`
   justify-start
   items-start
   col-span-1
+  md:ml-2
 `;
 
 const GroupTitle = tw.h3`
@@ -182,7 +183,7 @@ const CardCol = tw.div`
   justify-start
   items-start
   col-span-2
-  md:mb-4
+  md:mb-6
   bg-white
   border
   border-grey
@@ -197,6 +198,7 @@ const Fields = tw.div`
   items-start
   w-full
   px-5
+  md:px-3
   pt-3
   pb-5
 `;

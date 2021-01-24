@@ -11,21 +11,21 @@ const IconDisplay = ({ Icon, color }) => {
   }
   if (Icon) {
     return (
-      <ImageWrapper color={color}>
+      <ImageWrapper $color={color}>
         <Icon size="1em" /> {/* i.e. w-4 */}
       </ImageWrapper>
     );
   }
   return null;
 };
-const ImageWrapper = styled.div(({ color }) => [
+const ImageWrapper = styled.div(({ $color }) => [
   tw`w-4
   flex
   justify-center
   items-center
   text-deepBlue
   mr-2`,
-  color,
+  $color,
 ]);
 const Image = tw.img`
   w-4
@@ -59,7 +59,7 @@ const Root = styled.div(({ $color }) => [
   $color,
   tw`rounded-xl
   border
-  px-3
+  px-2
   py-1
   ml-2
   my-1
@@ -82,7 +82,7 @@ const Button = styled.button(({ $color }) => [
   flex
   justify-center
   items-center
-  ml-4
+  ml-3
   cursor-pointer`,
 ]);
 

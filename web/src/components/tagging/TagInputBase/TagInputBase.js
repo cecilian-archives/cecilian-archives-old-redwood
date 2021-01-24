@@ -4,7 +4,7 @@ import Tag from "../Tag/Tag";
 import useClickOutside from "src/utils/useClickOutside";
 import Logo from "src/assets/svg/logo.svg";
 import AnimatedLogo from "src/components/chrome/AnimatedLogo/AnimatedLogo";
-import { ImPriceTag } from "react-icons/im";
+import { IoMdPricetag } from "react-icons/io";
 import tagColorMap from "../tagColorMap";
 
 const OptionIcon = ({ image, Fallback, tagType }) => {
@@ -132,6 +132,7 @@ const TagInput = ({
             autoComplete="off"
             onKeyDown={inputKeyDown}
             onChange={onInputChange}
+            collapse={singleSelection && tagList.length !== 0 && !inputValue}
           />
           {isCreating && (
             <CreatingIcon>
@@ -173,8 +174,8 @@ const TagInput = ({
                 }}
               >
                 <OptionIcon
-                  Fallback={onCreate ? ImPriceTag : fallbackIcon}
-                  tagType={tagType}
+                  Fallback={onCreate ? IoMdPricetag : fallbackIcon}
+                  tagType={onCreate ? null : tagType}
                 />
                 {onCreate ? `Create a tag for ${inputValue}` : "No results"}
               </Option>
@@ -243,17 +244,18 @@ const Field = tw.div`
   w-full
 `;
 
-const Input = tw.input`
+const Input = styled.input(({ collapse }) => [
+  collapse ? tw`w-0 focus:flex-grow` : tw`flex-grow`,
+  tw`
   font-body
-  flex-grow
   border-transparent
   outline-none
   focus:outline-none
   focus:border-transparent
   focus:ring-0
   mx-auto
-  h-10
-`;
+  h-10`,
+]);
 
 const Dropdown = tw.div`
   absolute
