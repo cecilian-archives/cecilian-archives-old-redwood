@@ -20,14 +20,13 @@ const formatLabel = (cecilian) => {
       ? firstYear
       : `${firstYear}–${lastYear}`
     : null;
-  return `${cecilian.displayName}${
-    yearPhrase ? ` (active ${yearPhrase})` : ""
-  }`;
+  return yearPhrase && `(active ${yearPhrase})`;
 };
 
 export const formatCecilianAsOption = (cecilian, selectedOptions = []) => ({
-  key: cecilian?.slug,
-  label: formatLabel(cecilian),
+  key: cecilian.slug,
+  label: cecilian.displayName,
+  extension: formatLabel(cecilian),
   picture: cecilian?.user?.picture,
   selected: selectedOptions
     .map((option) => option.key)

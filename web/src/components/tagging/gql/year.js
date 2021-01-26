@@ -3,6 +3,10 @@ export const yearSearchQuery = gql`
     searchResults: searchYears(needle: $needle) {
       slug
       name
+      events {
+        type
+        name
+      }
     }
   }
 `;
