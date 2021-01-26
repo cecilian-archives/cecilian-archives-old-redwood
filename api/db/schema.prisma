@@ -247,9 +247,9 @@ model Event {
   inTags         Tag[]
 }
 enum EventType {
-  SHOW
-  ANNIVERSARY
-  EVENT
+  SHOW          /// Has inherent year
+  ANNIVERSARY   /// Has inherent year
+  EVENT         /// DOES NOT have inherent year
 }
 
 model Role {
@@ -264,10 +264,10 @@ model Role {
   inTags          Tag[]
 }
 enum RoleType {
-  PERFORMANCE
-  PRODUCTION
-  COMMITTEE
-  SOCIETY
+  PERFORMANCE   /// Has inherent event (probably a show)
+  PRODUCTION    /// DOES NOT have inherent event
+  COMMITTEE     /// DOES NOT have inherent event
+  SOCIETY       /// DOES NOT have inherent event
 }
 
 model Tag {
