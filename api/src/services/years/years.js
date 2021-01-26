@@ -26,6 +26,12 @@ export const year = ({ id }) => {
   });
 };
 
+export const yearBySlug = ({ slug }) => {
+  return db.year.findUnique({
+    where: { slug },
+  });
+};
+
 export const createYear = ({ input }) => {
   return db.year.create({
     data: foreignKeyReplacement(input),
