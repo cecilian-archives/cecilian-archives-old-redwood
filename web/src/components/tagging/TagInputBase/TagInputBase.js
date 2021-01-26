@@ -64,7 +64,7 @@ const TagInput = ({
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   useClickOutside(dropdownRef, dropdownIsOpen, () => {
     setDropdownIsOpen(false);
-    singleSelection && setInputValue("");
+    setInputValue("");
   });
 
   const [showErrorMessage, setShowErrorMessage] = useState(true);
@@ -192,8 +192,11 @@ const TagInput = ({
                       setTagList((current) =>
                         singleSelection ? [option] : [...current, option]
                       );
-                      setDropdownIsOpen(false);
-                      setInputValue("");
+                      singleSelection && setDropdownIsOpen(false);
+                      singleSelection && setInputValue("");
+                      !singleSelection &&
+                        inputRef.current.select() &&
+                        inputRef.current.focus();
                     }}
                   >
                     <OptionIcon
@@ -201,7 +204,12 @@ const TagInput = ({
                       Fallback={fallbackIcon}
                       tagType={tagType}
                     />
-                    {option.label}
+                    <OptionText>
+                      <OptionLabel>{option.label}</OptionLabel>
+                      {option.extension && (
+                        <OptionExtension> {option.extension}</OptionExtension>
+                      )}
+                    </OptionText>
                   </Option>
                 );
               })
@@ -329,6 +337,29 @@ const ErrorMessage = tw.span`
   font-body
   text-deepRed
   mt-1
+`;
+
+const OptionText = tw.div`
+  w-full
+  flex
+  justify-between
+  items-center
+`;
+
+const OptionLabel = tw.span`
+  font-body
+  text-grey-darker
+  min-w-max
+  md:w-1/2
+`;
+
+const OptionExtension = tw.span`
+  font-body
+  text-grey
+  text-right
+  md:text-left
+  md:w-1/2
+  md:text-sm
 `;
 
 export default TagInput;

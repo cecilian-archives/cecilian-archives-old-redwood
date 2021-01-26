@@ -35,11 +35,15 @@ const Image = tw.img`
 
 const Tag = ({ label, type, icon, remove }) => {
   const colors = tagColorMap[type] || tagColorMap.default;
+  const onClick = (event) => {
+    event.stopPropagation();
+    remove();
+  };
   return (
     <Root $color={colors.root}>
       {icon && <IconDisplay Icon={icon} color={colors.icon} />}
       <Label $color={colors.label}>{label}</Label>
-      <Button type="button" $color={colors.button} onClick={remove}>
+      <Button type="button" $color={colors.button} onClick={onClick}>
         <svg
           width="8"
           height="8"
