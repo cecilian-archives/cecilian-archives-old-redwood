@@ -5,6 +5,21 @@ export const roles = () => {
   return db.role.findMany();
 };
 
+export const searchRoles = ({ needle, skip, take }) => {
+  if (!needle) return roles();
+  return db.role.findMany({
+    where: {
+      name: {
+        contains: needle,
+        mode: "insensitive",
+      },
+    },
+    orderBy: [{ name: "asc" }],
+    skip: skip || undefined,
+    take: take || undefined,
+  });
+};
+
 export const role = ({ id }) => {
   return db.role.findUnique({
     where: { id },

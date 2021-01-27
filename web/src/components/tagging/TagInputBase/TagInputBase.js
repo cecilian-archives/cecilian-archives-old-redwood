@@ -357,6 +357,7 @@ const OptionExtension = tw.span`
   font-body
   text-grey
   text-right
+  pr-1
   md:text-left
   md:w-1/2
   md:text-sm

@@ -20,6 +20,7 @@ export const schema = gql`
 
   type Query {
     roles: [Role!]!
+    searchRoles(needle: String, skip: Int, take: Int): [Role!]!
     role(id: Int!): Role
   }
 
