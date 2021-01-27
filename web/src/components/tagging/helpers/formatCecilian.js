@@ -36,3 +36,12 @@ export const formatCecilianAsOption = (cecilian, selectedOptions = []) => ({
 export const formatCecilianForInput = (cecilianName) => ({
   displayName: formatCase(cecilianName),
 });
+
+export const cecilianSelectionSorter = (_) => (cecilians) => {
+  if (!cecilians) return [];
+  return cecilians.slice().sort((a, b) => {
+    if (String(a?.label) < String(b?.label)) return -1;
+    if (String(a?.label) > String(b?.label)) return 1;
+    return 0;
+  });
+};

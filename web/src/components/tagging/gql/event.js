@@ -9,6 +9,11 @@ export const eventSearchQuery = gql`
         name
       }
     }
+    types: __type(name: "EventType") {
+      enumValues {
+        name
+      }
+    }
   }
 `;
 

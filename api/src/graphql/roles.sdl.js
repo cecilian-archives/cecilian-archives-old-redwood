@@ -12,10 +12,10 @@ export const schema = gql`
   }
 
   enum RoleType {
-    PERFORMANCE
-    PRODUCTION
-    COMMITTEE
     SOCIETY
+    COMMITTEE
+    PRODUCTION
+    PERFORMANCE
   }
 
   type Query {

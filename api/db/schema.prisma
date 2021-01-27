@@ -264,10 +264,10 @@ model Role {
   inTags          Tag[]
 }
 enum RoleType {
-  PERFORMANCE   /// Has inherent event (probably a show)
-  PRODUCTION    /// DOES NOT have inherent event
-  COMMITTEE     /// DOES NOT have inherent event
   SOCIETY       /// DOES NOT have inherent event
+  COMMITTEE     /// DOES NOT have inherent event
+  PRODUCTION    /// DOES NOT have inherent event
+  PERFORMANCE   /// Has inherent event (probably a show)
 }
 
 model Tag {

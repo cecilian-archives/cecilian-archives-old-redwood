@@ -87,7 +87,8 @@ const Button = styled.button(({ $color }) => [
   justify-center
   items-center
   ml-3
-  cursor-pointer`,
+  cursor-pointer
+  focus:outline-none`,
 ]);
 
 const Path = styled.path(({ $color }) => [$color, tw`stroke-current`]);
