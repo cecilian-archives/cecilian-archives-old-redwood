@@ -6,6 +6,7 @@ import Logo from "src/assets/svg/logo.svg";
 import AnimatedLogo from "src/components/chrome/AnimatedLogo/AnimatedLogo";
 import { IoMdPricetag } from "react-icons/io";
 import tagColorMap from "../tagColorMap";
+import tagTypeMap from "../tagTypeMap";
 
 const OptionIcon = ({ image, Fallback, tagType }) => {
   if (image) {
@@ -58,6 +59,7 @@ const TagInput = ({
   freeTagging = false,
   singleSelection,
   tagType,
+  tagSubTypes,
 }) => {
   const inputRef = useRef();
   const dropdownRef = useRef();
@@ -101,6 +103,8 @@ const TagInput = ({
     searchCallback && searchCallback(val);
   };
 
+  const tagTypeSorter = tagTypeMap[tagType]?.selectionSorter?.(tagSubTypes);
+
   return (
     <Container ref={dropdownRef}>
       <Root
@@ -126,9 +130,7 @@ const TagInput = ({
             type="text"
             value={inputValue}
             name={name}
-            placeholder={
-              !singleSelection || tagList.length === 0 ? placeholder : ""
-            }
+            placeholder={tagList.length === 0 ? placeholder : ""}
             autoComplete="off"
             onKeyDown={inputKeyDown}
             onChange={onInputChange}
@@ -189,9 +191,12 @@ const TagInput = ({
                     noHighlight={isAlreadySelected}
                     onClick={() => {
                       if (isAlreadySelected) return false;
-                      setTagList((current) =>
-                        singleSelection ? [option] : [...current, option]
-                      );
+                      setTagList((current) => {
+                        const newVal = singleSelection
+                          ? [option]
+                          : [...current, option];
+                        return tagTypeSorter ? tagTypeSorter(newVal) : newVal;
+                      });
                       singleSelection && setDropdownIsOpen(false);
                       singleSelection && setInputValue("");
                       !singleSelection &&

@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { useQuery, useMutation } from "@redwoodjs/web";
 import TagInputBase from "src/components/tagging/TagInputBase/TagInputBase";
 import tagTypeMap from "../tagTypeMap";
+import { sortEventsByYear } from "../helpers/formatEvent";
 
 const TagInputField = ({ type, single = false, allowCreation = false }) => {
   const {
@@ -23,7 +24,13 @@ const TagInputField = ({ type, single = false, allowCreation = false }) => {
   const [selectedOptions, setSelected] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
-  const options = (data?.searchResults || []).map((result) =>
+  // TODO: This client-side sort is a workaround until we can sort by
+  // relation fields in Prisma: https://github.com/prisma/prisma/issues/5008
+  const sortedResults =
+    type === "event"
+      ? sortEventsByYear(data?.searchResults)
+      : data?.searchResults;
+  const options = (sortedResults || []).map((result) =>
     optionFormatter(result, selectedOptions)
   );
 
@@ -66,6 +73,7 @@ const TagInputField = ({ type, single = false, allowCreation = false }) => {
       onCreate={allowCreation ? onCreateOption : undefined}
       singleSelection={single}
       tagType={type}
+      tagSubTypes={data?.types}
       fallbackIcon={fallbackIcon}
     />
   );

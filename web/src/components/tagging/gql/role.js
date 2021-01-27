@@ -13,6 +13,11 @@ export const roleSearchQuery = gql`
         }
       }
     }
+    types: __type(name: "RoleType") {
+      enumValues {
+        name
+      }
+    }
   }
 `;
 

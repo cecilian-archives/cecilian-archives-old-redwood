@@ -19,3 +19,12 @@ export const formatYearForInput = (yearName) => ({
   slug: yearName,
   name: yearName,
 });
+
+export const yearSelectionSorter = (_) => (years) => {
+  if (!years) return [];
+  return years.slice().sort((a, b) => {
+    if (String(a?.label) < String(b?.label)) return -1;
+    if (String(a?.label) > String(b?.label)) return 1;
+    return 0;
+  });
+};
