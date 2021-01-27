@@ -93,13 +93,15 @@ const ProfileEditor = ({ profile }) => {
       <CardCol>
         <Fields>
           <FieldLabel>Events</FieldLabel>
-          <TagInputField type="cecilian" /> {/* TODO: type="event" */}
-          <FieldHelp>Search for shows by name or year</FieldHelp>
+          <TagInputField type="event" />
+          <FieldHelp>
+            Search for events (shows or other regular happenings)
+          </FieldHelp>
           <FieldLabel>Years</FieldLabel>
           <TagInputField type="year" />
           <FieldHelp>Search for years (AGM to AGM)</FieldHelp>
           <FieldLabel>Roles</FieldLabel>
-          <TagInputField type="cecilian" /> {/* TODO: type="role" */}
+          <TagInputField type="role" />
           <FieldHelp>Search for society or performance roles</FieldHelp>
         </Fields>
         <SaveBar>
@@ -115,9 +117,10 @@ const ProfileEditor = ({ profile }) => {
           <FieldLabel>Contact</FieldLabel>
           <TextInput name="contact" placeholder="Example" />
           <FieldHelp>Needs to be multiple, with an add button</FieldHelp>
+          <Button type="outline">Add Another</Button>
         </Fields>
         <SaveBar>
-          <Button type="primary">Save</Button>
+          <Button type="primary">Save All</Button>
         </SaveBar>
       </CardCol>
       <GroupCol>
@@ -129,8 +132,8 @@ const ProfileEditor = ({ profile }) => {
           <FieldLabel>Your Access Key</FieldLabel>
           <TextInput name="accessKey" placeholder="Any word or phrase" />
           <FieldHelp>
-            You can only have one access key at a time. Editing this will
-            invalidate any previous keys.
+            You can only have one access key at a time. Changing this will
+            invalidate previous keys.
           </FieldHelp>
         </Fields>
         <SaveBar>

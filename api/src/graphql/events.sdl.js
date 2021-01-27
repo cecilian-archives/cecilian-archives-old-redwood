@@ -22,6 +22,7 @@ export const schema = gql`
 
   type Query {
     events: [Event!]!
+    searchEvents(needle: String, skip: Int, take: Int): [Event!]!
     event(id: Int!): Event
   }
 

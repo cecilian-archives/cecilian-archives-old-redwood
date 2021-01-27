@@ -5,6 +5,21 @@ export const events = () => {
   return db.event.findMany();
 };
 
+export const searchEvents = ({ needle, skip, take }) => {
+  if (!needle) return events();
+  return db.event.findMany({
+    where: {
+      name: {
+        contains: needle,
+        mode: "insensitive",
+      },
+    },
+    orderBy: [{ name: "asc" }],
+    skip: skip || undefined,
+    take: take || undefined,
+  });
+};
+
 export const event = ({ id }) => {
   return db.event.findUnique({
     where: { id },
