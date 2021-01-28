@@ -15,10 +15,20 @@ export const formatRoleAsOption = (role, selectedOptions = []) => ({
   label: role.name,
   type: role.type,
   extension: formatLabel(role),
-  relations: { event: role?.inherentEvent },
+  relations: { inherentEvent: role?.inherentEvent },
   picture: null,
   selected: selectedOptions.map((option) => option.key).includes(role?.id),
 });
+
+export const formatRoleTagDisplay = (tag) => {
+  const { inherentEvent, event: tagEvent, year } = tag.relations;
+  const event = inherentEvent || tagEvent;
+  const eventYear = event?.year?.name;
+  if (event)
+    return `${tag.label} (${event.name}${eventYear ? `, ${eventYear}` : ""})`;
+  if (year) return `${tag.label} (${year.name})`;
+  return tag.label;
+};
 
 export const formatRoleForInput = ({ type, name, event }) => ({
   type,

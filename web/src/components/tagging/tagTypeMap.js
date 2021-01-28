@@ -14,11 +14,13 @@ import {
 } from "./helpers/formatYear";
 import {
   formatEventAsOption,
+  formatEventTagDisplay,
   formatEventForInput,
   eventSelectionSorter,
 } from "./helpers/formatEvent";
 import {
   formatRoleAsOption,
+  formatRoleTagDisplay,
   formatRoleForInput,
   roleSelectionSorter,
 } from "./helpers/formatRole";
@@ -47,6 +49,7 @@ const tagTypeMap = {
     searchQuery: eventSearchQuery,
     creationMutation: eventCreationMutation,
     optionFormatter: formatEventAsOption,
+    tagFormatter: formatEventTagDisplay,
     inputFormatter: formatEventForInput,
     selectionSorter: eventSelectionSorter,
     fallbackIcon: FaTicketAlt,
@@ -55,6 +58,7 @@ const tagTypeMap = {
     searchQuery: roleSearchQuery,
     creationMutation: roleCreationMutation,
     optionFormatter: formatRoleAsOption,
+    tagFormatter: formatRoleTagDisplay,
     inputFormatter: formatRoleForInput,
     selectionSorter: roleSelectionSorter,
     fallbackIcon: GiPerson,
