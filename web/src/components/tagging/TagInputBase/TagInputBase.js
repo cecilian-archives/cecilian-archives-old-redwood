@@ -104,6 +104,7 @@ const TagInput = ({
   };
 
   const tagTypeSorter = tagTypeMap[tagType]?.selectionSorter?.(tagSubTypes);
+  const tagLabelFormatter = tagTypeMap[tagType]?.tagFormatter;
 
   return (
     <Container ref={dropdownRef}>
@@ -121,7 +122,11 @@ const TagInput = ({
                   key={tag.key || tag}
                   type={tagType}
                   icon={tag?.picture || fallbackIcon}
-                  label={tag?.label || tag}
+                  label={
+                    tagLabelFormatter
+                      ? tagLabelFormatter(tag)
+                      : tag?.label || tag
+                  }
                   remove={removeSingleTag(idx)}
                 />
               ))}
@@ -134,7 +139,7 @@ const TagInput = ({
             autoComplete="off"
             onKeyDown={inputKeyDown}
             onChange={onInputChange}
-            collapse={singleSelection && tagList.length !== 0 && !inputValue}
+            collapse={tagList.length !== 0 && !inputValue}
           />
           {isCreating && (
             <CreatingIcon>
@@ -258,7 +263,7 @@ const Field = tw.div`
 `;
 
 const Input = styled.input(({ collapse }) => [
-  collapse ? tw`w-0 focus:flex-grow` : tw`flex-grow`,
+  collapse ? tw`w-0 focus:w-auto focus:flex-grow` : tw`flex-grow`,
   tw`
   font-body
   border-transparent
