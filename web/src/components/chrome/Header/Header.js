@@ -53,7 +53,6 @@ const HeaderLogo = styled.div(({ spacer }) => [
 ]);
 
 const HeaderTitle = tw.div`
-  font-title
   text-2xl
   text-white
   mr-3

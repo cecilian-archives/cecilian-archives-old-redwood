@@ -95,7 +95,6 @@ const Panel = tw.div`
 `;
 
 const PanelHeader = tw.div`
-  font-body
   font-bold
   text-lg
   text-grey-darker
@@ -112,7 +111,6 @@ const PanelItem = tw.div`
   px-6
   py-3
   last:pb-4
-  font-body
   text-grey-darker
   cursor-pointer
   hover:bg-grey-lighter

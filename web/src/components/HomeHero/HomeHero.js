@@ -75,13 +75,13 @@ const Welcome = styled.div`
   ${tw`text-center
   p-8`}
   h1 {
-    ${tw`font-title
+    ${tw`
     text-white
     text-7xl
     pt-3`}
   }
   h2 {
-    ${tw`font-title
+    ${tw`
     text-white
     text-4xl
     border-b

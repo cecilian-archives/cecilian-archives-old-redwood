@@ -38,7 +38,6 @@ const Root = tw.footer`
 `;
 
 const HelpLink = tw.a`
-  font-body
   text-grey-lighter
   text-sm
   transition-transform

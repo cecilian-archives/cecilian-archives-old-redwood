@@ -265,7 +265,6 @@ const Field = tw.div`
 const Input = styled.input(({ collapse }) => [
   collapse ? tw`w-0 focus:w-auto focus:flex-grow` : tw`flex-grow`,
   tw`
-  font-body
   border-transparent
   outline-none
   focus:outline-none
@@ -291,7 +290,6 @@ const OptionList = tw.ul`
   max-h-56
   rounded-md
   py-1
-  font-body
   text-base
   ring-1
   ring-grey
@@ -344,7 +342,6 @@ const StaticLogo = tw(Logo)`
 
 const ErrorMessage = tw.span`
   block
-  font-body
   text-deepRed
   mt-1
 `;
@@ -357,14 +354,12 @@ const OptionText = tw.div`
 `;
 
 const OptionLabel = tw.span`
-  font-body
   text-grey-darker
   min-w-max
   md:w-1/2
 `;
 
 const OptionExtension = tw.span`
-  font-body
   text-grey
   text-right
   pr-1
