@@ -25,7 +25,6 @@ const StaticLogo = tw(Logo)`
 
 const SpacedTitle = tw.h3`
   m-4
-  font-title
   text-xl
 `;
 

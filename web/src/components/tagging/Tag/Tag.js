@@ -72,11 +72,7 @@ const Root = styled.div(({ $color }) => [
   items-center`,
 ]);
 
-const Label = styled.span(({ $color }) => [
-  $color,
-  tw`font-body
-  text-sm`,
-]);
+const Label = styled.span(({ $color }) => [$color, tw`text-sm`]);
 
 const Button = styled.button(({ $color }) => [
   $color,

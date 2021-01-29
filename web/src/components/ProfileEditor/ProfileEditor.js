@@ -174,7 +174,6 @@ const GroupTitle = tw.h3`
 `;
 
 const GroupBlurb = tw.span`
-  font-body
   text-base
   max-w-prose
   text-grey-dark
@@ -207,7 +206,6 @@ const Fields = tw.div`
 `;
 
 const FieldLabel = tw(Label)`
-  font-body
   text-base
   text-grey-darker
   first:mt-1
@@ -217,7 +215,6 @@ const FieldLabel = tw(Label)`
 
 const TextInput = tw(TextField)`
   w-full
-  font-body
   rounded
   border-grey-dark
   focus:outline-none
@@ -227,7 +224,6 @@ const TextInput = tw(TextField)`
 `;
 
 const FieldHelp = tw.span`
-  font-body
   text-base
   max-w-prose
   text-grey
