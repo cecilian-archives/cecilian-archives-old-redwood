@@ -9,7 +9,6 @@ import { store, persistor } from "./ducks/";
 import { PersistGate } from "redux-persist/integration/react";
 
 import GlobalStyles from "./GlobalStyles";
-import "./fonts.css";
 
 import Routes from "src/Routes";
 
