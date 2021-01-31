@@ -12,9 +12,13 @@ export const schema = gql`
   }
 
   enum RoleType {
+    "event|year" # Society roles may have an associated event or an associated year
     SOCIETY
+    "year" # Committee roles may have an associated year
     COMMITTEE
+    "event" # Production roles may have an associated event
     PRODUCTION
+    "inherentEvent" # Performance roles may only have an inherentEvent
     PERFORMANCE
   }
 

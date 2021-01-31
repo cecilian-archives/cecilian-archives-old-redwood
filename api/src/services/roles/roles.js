@@ -6,7 +6,7 @@ export const roles = () => {
 };
 
 export const searchRoles = ({ needle, skip, take }) => {
-  if (!needle) return roles();
+  if (!needle) return [];
   return db.role.findMany({
     where: {
       name: {

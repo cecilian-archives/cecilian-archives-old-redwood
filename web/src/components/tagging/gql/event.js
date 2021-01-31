@@ -12,6 +12,7 @@ export const eventSearchQuery = gql`
     types: __type(name: "EventType") {
       enumValues {
         name
+        description
       }
     }
   }

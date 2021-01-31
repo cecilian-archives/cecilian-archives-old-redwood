@@ -15,8 +15,11 @@ export const schema = gql`
   }
 
   enum EventType {
+    "inherentYear" # Shows may only have an inherentYear
     SHOW
+    "inherentYear" # Anniversaries may only have an inherentYear
     ANNIVERSARY
+    "year" # Events may have an associated year
     EVENT
   }
 

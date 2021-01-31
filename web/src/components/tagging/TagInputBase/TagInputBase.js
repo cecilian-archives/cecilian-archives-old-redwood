@@ -60,6 +60,7 @@ const TagInput = ({
   singleSelection,
   tagType,
   tagSubTypes,
+  dropdownBeforeSearch,
 }) => {
   const inputRef = useRef();
   const dropdownRef = useRef();
@@ -106,6 +107,11 @@ const TagInput = ({
   const tagTypeSorter = tagTypeMap[tagType]?.selectionSorter?.(tagSubTypes);
   const tagLabelFormatter = tagTypeMap[tagType]?.tagFormatter;
 
+  const checkDuplicate = (needle, haystack) =>
+    haystack.find((hay) => JSON.stringify(hay) === JSON.stringify(needle));
+  // JSON.stringify is sufficient here because we have total control
+  // over the generation of these objects - in the tagTypeMap optionFormatter
+
   return (
     <Container ref={dropdownRef}>
       <Root
@@ -115,11 +121,11 @@ const TagInput = ({
         }}
       >
         <Field>
-          {singleSelection && inputValue
+          {singleSelection && dropdownIsOpen
             ? null
             : tagList.map((tag, idx) => (
                 <Tag
-                  key={tag.key || tag}
+                  key={idx}
                   type={tagType}
                   icon={tag?.picture || fallbackIcon}
                   label={
@@ -154,79 +160,82 @@ const TagInput = ({
           offline?
         </ErrorMessage>
       )}
-      {options && dropdownIsOpen && inputValue !== "" && (
-        <Dropdown>
-          <OptionList>
-            {isLoading ? (
-              <Option dim noHighlight>
-                <LoadingIcon>
-                  <AnimatedLogo width="1.5em" />
-                </LoadingIcon>
-                Loading options...
-              </Option>
-            ) : loadError ? (
-              <Option error noHighlight>
-                <LoadingIcon>
-                  <StaticLogo />
-                </LoadingIcon>
-                Could not load options. Press Enter to try again.
-              </Option>
-            ) : options.length === 0 ? (
-              <Option
-                actionable={Boolean(onCreate)}
-                noHighlight={!Boolean(onCreate)}
-                onClick={() => {
-                  onCreate(inputValue);
-                  setDropdownIsOpen(false);
-                }}
-              >
-                <OptionIcon
-                  Fallback={onCreate ? IoMdPricetag : fallbackIcon}
-                  tagType={onCreate ? null : tagType}
-                />
-                {onCreate ? `Create a tag for ${inputValue}` : "No results"}
-              </Option>
-            ) : (
-              options.map((option) => {
-                const isAlreadySelected = !singleSelection && option.selected;
-                return (
-                  <Option
-                    key={option.key}
-                    fade={isAlreadySelected}
-                    noHighlight={isAlreadySelected}
-                    onClick={() => {
-                      if (isAlreadySelected) return false;
-                      setTagList((current) => {
-                        const newVal = singleSelection
-                          ? [option]
-                          : [...current, option];
-                        return tagTypeSorter ? tagTypeSorter(newVal) : newVal;
-                      });
-                      singleSelection && setDropdownIsOpen(false);
-                      singleSelection && setInputValue("");
-                      !singleSelection &&
-                        inputRef.current.select() &&
-                        inputRef.current.focus();
-                    }}
-                  >
-                    <OptionIcon
-                      image={option.picture}
-                      Fallback={fallbackIcon}
-                      tagType={tagType}
-                    />
-                    <OptionText>
-                      <OptionLabel>{option.label}</OptionLabel>
-                      {option.extension && (
-                        <OptionExtension> {option.extension}</OptionExtension>
-                      )}
-                    </OptionText>
-                  </Option>
-                );
-              })
-            )}
-          </OptionList>
-        </Dropdown>
-      )}
+      {options &&
+        dropdownIsOpen &&
+        (dropdownBeforeSearch || inputValue.trim() !== "") && (
+          <Dropdown>
+            <OptionList>
+              {isLoading ? (
+                <Option dim noHighlight>
+                  <LoadingIcon>
+                    <AnimatedLogo width="1.5em" />
+                  </LoadingIcon>
+                  Loading options...
+                </Option>
+              ) : loadError ? (
+                <Option error noHighlight>
+                  <LoadingIcon>
+                    <StaticLogo />
+                  </LoadingIcon>
+                  Could not load options. Press Enter to try again.
+                </Option>
+              ) : options.length === 0 ? (
+                <Option
+                  actionable={Boolean(onCreate)}
+                  noHighlight={!Boolean(onCreate)}
+                  onClick={() => {
+                    onCreate(inputValue);
+                    setDropdownIsOpen(false);
+                  }}
+                >
+                  <OptionIcon
+                    Fallback={onCreate ? IoMdPricetag : fallbackIcon}
+                    tagType={onCreate ? null : tagType}
+                  />
+                  {onCreate ? `Create a tag for ${inputValue}` : "No results"}
+                </Option>
+              ) : (
+                options.map((option) => {
+                  const isAlreadySelected = !singleSelection && option.selected;
+                  return (
+                    <Option
+                      key={option.key}
+                      fade={isAlreadySelected}
+                      noHighlight={isAlreadySelected}
+                      onClick={() => {
+                        if (isAlreadySelected) return false;
+                        setTagList((current) => {
+                          if (checkDuplicate(option, current)) return current;
+                          const newVal = singleSelection
+                            ? [option]
+                            : [...current, option];
+                          return tagTypeSorter ? tagTypeSorter(newVal) : newVal;
+                        });
+                        singleSelection && setDropdownIsOpen(false);
+                        singleSelection && setInputValue("");
+                        !singleSelection &&
+                          inputRef.current.select() &&
+                          inputRef.current.focus();
+                      }}
+                    >
+                      <OptionIcon
+                        image={option.picture}
+                        Fallback={fallbackIcon}
+                        tagType={tagType}
+                      />
+                      <OptionText>
+                        <OptionLabel>{option.label}</OptionLabel>
+                        {option.extension && (
+                          <OptionExtension> {option.extension}</OptionExtension>
+                        )}
+                      </OptionText>
+                    </Option>
+                  );
+                })
+              )}
+            </OptionList>
+          </Dropdown>
+        )}
     </Container>
   );
 };

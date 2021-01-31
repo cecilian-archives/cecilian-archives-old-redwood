@@ -4,13 +4,20 @@ const formatLabel = (event) => {
   return yearPhrase;
 };
 
-export const formatEventAsOption = (event, selectedOptions = []) => ({
+export const formatEventAsOption = (
+  event,
+  selectedOptions = [],
+  relationTypeMap = {}
+) => ({
   key: event.id,
   label: event.name,
   extension: formatLabel(event),
+  tagRelationType: relationTypeMap[event.type],
   relations: { inherentYear: event?.inherentYear?.name },
   picture: null,
-  selected: selectedOptions.map((option) => option.key).includes(event?.id),
+  selected:
+    Boolean(event?.inherentYear) &&
+    selectedOptions.map((option) => option.key).includes(event?.id),
 });
 
 export const formatEventTagDisplay = (tag) => {

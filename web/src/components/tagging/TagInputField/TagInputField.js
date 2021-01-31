@@ -30,8 +30,13 @@ const TagInputField = ({ type, single = false, allowCreation = false }) => {
     type === "event"
       ? sortEventsByYear(data?.searchResults)
       : data?.searchResults;
+  const relationTypeMap =
+    data?.types?.enumValues &&
+    Object.fromEntries(
+      data.types.enumValues?.map((val) => [val.name, val.description])
+    );
   const options = (sortedResults || []).map((result) =>
-    optionFormatter(result, selectedOptions)
+    optionFormatter(result, selectedOptions, relationTypeMap)
   );
 
   const onSearchChange = useCallback(
@@ -75,6 +80,7 @@ const TagInputField = ({ type, single = false, allowCreation = false }) => {
       tagType={type}
       tagSubTypes={data?.types}
       fallbackIcon={fallbackIcon}
+      dropdownBeforeSearch={type === "year" || type === "event"}
     />
   );
 };
