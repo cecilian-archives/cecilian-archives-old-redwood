@@ -10,14 +10,21 @@ const formatLabel = (role) => {
   return eventPhrase;
 };
 
-export const formatRoleAsOption = (role, selectedOptions = []) => ({
+export const formatRoleAsOption = (
+  role,
+  selectedOptions = [],
+  relationTypeMap = {}
+) => ({
   key: role.id,
   label: role.name,
   type: role.type,
   extension: formatLabel(role),
+  tagRelationType: relationTypeMap[role.type],
   relations: { inherentEvent: role?.inherentEvent },
   picture: null,
-  selected: selectedOptions.map((option) => option.key).includes(role?.id),
+  selected:
+    Boolean(role?.inherentEvent) &&
+    selectedOptions.map((option) => option.key).includes(role?.id),
 });
 
 export const formatRoleTagDisplay = (tag) => {
