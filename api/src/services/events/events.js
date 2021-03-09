@@ -1,5 +1,4 @@
 import { db } from "src/lib/db";
-import { foreignKeyReplacement } from "../utils";
 
 export const events = () => {
   return db.event.findMany();
@@ -35,13 +34,13 @@ export const event = ({ id }) => {
 
 export const createEvent = ({ input }) => {
   return db.event.create({
-    data: foreignKeyReplacement(input),
+    data: input,
   });
 };
 
 export const updateEvent = ({ id, input }) => {
   return db.event.update({
-    data: foreignKeyReplacement(input),
+    data: input,
     where: { id },
   });
 };

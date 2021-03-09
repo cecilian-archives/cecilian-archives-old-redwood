@@ -1,5 +1,4 @@
 import { db } from "src/lib/db";
-import { foreignKeyReplacement } from "../utils";
 
 export const archiveItemFiles = () => {
   return db.archiveItemFile.findMany();
@@ -13,13 +12,13 @@ export const archiveItemFile = ({ id }) => {
 
 export const createArchiveItemFile = ({ input }) => {
   return db.archiveItemFile.create({
-    data: foreignKeyReplacement(input),
+    data: input,
   });
 };
 
 export const updateArchiveItemFile = ({ id, input }) => {
   return db.archiveItemFile.update({
-    data: foreignKeyReplacement(input),
+    data: input,
     where: { id },
   });
 };

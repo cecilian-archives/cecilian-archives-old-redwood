@@ -1,5 +1,4 @@
 import { db } from "src/lib/db";
-import { foreignKeyReplacement } from "../utils";
 
 export const tags = () => {
   return db.tag.findMany();
@@ -13,13 +12,13 @@ export const tag = ({ id }) => {
 
 export const createTag = ({ input }) => {
   return db.tag.create({
-    data: foreignKeyReplacement(input),
+    data: input,
   });
 };
 
 export const updateTag = ({ id, input }) => {
   return db.tag.update({
-    data: foreignKeyReplacement(input),
+    data: input,
     where: { id },
   });
 };

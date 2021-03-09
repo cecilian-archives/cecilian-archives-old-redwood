@@ -1,5 +1,4 @@
 import { db } from "src/lib/db";
-import { foreignKeyReplacement } from "../utils";
 
 export const years = () => {
   return db.year.findMany();
@@ -34,13 +33,13 @@ export const yearBySlug = ({ slug }) => {
 
 export const createYear = ({ input }) => {
   return db.year.create({
-    data: foreignKeyReplacement(input),
+    data: input,
   });
 };
 
 export const updateYear = ({ id, input }) => {
   return db.year.update({
-    data: foreignKeyReplacement(input),
+    data: input,
     where: { id },
   });
 };

@@ -1,5 +1,5 @@
 import { db } from "src/lib/db";
-import { generateSlug, foreignKeyReplacement } from "../utils";
+import { generateSlug } from "../utils";
 
 export const cecilians = () => {
   return db.cecilian.findMany();
@@ -39,7 +39,7 @@ export const cecilian = ({ id }) => {
 export const createCecilian = ({ input }) => {
   return db.cecilian.create({
     data: {
-      ...foreignKeyReplacement(input),
+      ...input,
       slug: generateSlug(),
     },
   });

@@ -1,5 +1,5 @@
 import { db } from "src/lib/db";
-import { generateSlug, foreignKeyReplacement } from "../utils";
+import { generateSlug } from "../utils";
 
 export const archiveCollections = () => {
   return db.archiveCollection.findMany();
@@ -14,7 +14,7 @@ export const archiveCollection = ({ id }) => {
 export const createArchiveCollection = ({ input }) => {
   return db.archiveCollection.create({
     data: {
-      ...foreignKeyReplacement(input),
+      ...input,
       slug: generateSlug(),
     },
   });
