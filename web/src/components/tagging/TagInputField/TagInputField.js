@@ -24,18 +24,12 @@ const TagInputField = ({ type, single = false, allowCreation = false }) => {
   const [selectedOptions, setSelected] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
-  // TODO: This client-side sort is a workaround until we can sort by
-  // relation fields in Prisma: https://github.com/prisma/prisma/issues/5008
-  const sortedResults =
-    type === "event"
-      ? sortEventsByYear(data?.searchResults)
-      : data?.searchResults;
   const relationTypeMap =
     data?.types?.enumValues &&
     Object.fromEntries(
       data.types.enumValues?.map((val) => [val.name, val.description])
     );
-  const options = (sortedResults || []).map((result) =>
+  const options = (data?.searchResults || []).map((result) =>
     optionFormatter(result, selectedOptions, relationTypeMap)
   );
 

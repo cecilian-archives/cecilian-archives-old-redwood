@@ -41,18 +41,6 @@ export const formatEventForInput = ({
   endDate: endDate || undefined,
 });
 
-export const sortEventsByYear = (events) => {
-  // This is a workaround until we can sort by
-  // relation fields in Prisma: https://github.com/prisma/prisma/issues/5008
-  if (!events) return [];
-  return events.slice().sort((a, b) => {
-    if (String(a?.inherentYear?.name) < String(b?.inherentYear?.name)) return 1;
-    if (String(a?.inherentYear?.name) > String(b?.inherentYear?.name))
-      return -1;
-    return 0;
-  });
-};
-
 export const eventSelectionSorter = (_) => (events) => {
   if (!events) return [];
   return events.slice().sort((a, b) => {

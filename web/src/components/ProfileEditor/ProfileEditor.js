@@ -125,7 +125,7 @@ const ProfileEditor = ({ profile }) => {
       </CardCol>
       <GroupCol>
         <GroupTitle>Access Key</GroupTitle>
-        <GroupBlurb>Allow access to other Cecilians</GroupBlurb>
+        <GroupBlurb>Grant access to other Cecilians</GroupBlurb>
       </GroupCol>
       <CardCol>
         <Fields>
