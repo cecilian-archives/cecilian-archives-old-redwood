@@ -1,11 +1,11 @@
-import ReactDOM from "react-dom";
 import { AuthProvider } from "@redwoodjs/auth";
 import { Auth0Client } from "@auth0/auth0-spa-js";
-import { RedwoodProvider, FatalErrorBoundary } from "@redwoodjs/web";
+import { RedwoodApolloProvider } from "@redwoodjs/web/apollo";
+import { FatalErrorBoundary } from "@redwoodjs/web";
 import FatalErrorPage from "src/pages/FatalErrorPage";
 
 import { Provider as ReduxProvider } from "react-redux";
-import { store, persistor } from "./ducks/";
+import { store, persistor } from "./ducks";
 import { PersistGate } from "redux-persist/integration/react";
 
 import GlobalStyles from "./GlobalStyles";
@@ -24,18 +24,19 @@ const auth0 = new Auth0Client({
   audience: process.env.AUTH0_AUDIENCE,
 });
 
-ReactDOM.render(
+const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>
     <GlobalStyles />
     <ReduxProvider store={store}>
       <AuthProvider client={auth0} type="auth0">
-        <RedwoodProvider>
+        <RedwoodApolloProvider>
           <PersistGate loading={null} persistor={persistor}>
             <Routes />
           </PersistGate>
-        </RedwoodProvider>
+        </RedwoodApolloProvider>
       </AuthProvider>
     </ReduxProvider>
-  </FatalErrorBoundary>,
-  document.getElementById("redwood-app")
+  </FatalErrorBoundary>
 );
+
+export default App;

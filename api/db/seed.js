@@ -23,7 +23,7 @@ async function main() {
     });
   }
 
-  console.info("Finished seeding data. See api/prisma/seeds.js for info.");
+  console.info("Finished seeding data. See api/prisma/seed.js for info.");
 }
 
 main()
