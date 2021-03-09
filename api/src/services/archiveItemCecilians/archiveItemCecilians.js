@@ -1,5 +1,4 @@
 import { db } from "src/lib/db";
-import { foreignKeyReplacement } from "../utils";
 
 export const archiveItemCecilians = () => {
   return db.archiveItemCecilian.findMany();
@@ -13,13 +12,13 @@ export const archiveItemCecilian = ({ id }) => {
 
 export const createArchiveItemCecilian = ({ input }) => {
   return db.archiveItemCecilian.create({
-    data: foreignKeyReplacement(input),
+    data: input,
   });
 };
 
 export const updateArchiveItemCecilian = ({ id, input }) => {
   return db.archiveItemCecilian.update({
-    data: foreignKeyReplacement(input),
+    data: input,
     where: { id },
   });
 };

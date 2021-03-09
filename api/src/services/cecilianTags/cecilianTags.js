@@ -1,5 +1,4 @@
 import { db } from "src/lib/db";
-import { foreignKeyReplacement } from "../utils";
 
 export const cecilianTags = () => {
   return db.cecilianTag.findMany();
@@ -13,13 +12,13 @@ export const cecilianTag = ({ id }) => {
 
 export const createCecilianTag = ({ input }) => {
   return db.cecilianTag.create({
-    data: foreignKeyReplacement(input),
+    data: input,
   });
 };
 
 export const updateCecilianTag = ({ id, input }) => {
   return db.cecilianTag.update({
-    data: foreignKeyReplacement(input),
+    data: input,
     where: { id },
   });
 };

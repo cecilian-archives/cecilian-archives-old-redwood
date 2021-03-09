@@ -1,6 +1,5 @@
 import { requireAuth } from "src/lib/auth";
 import { db } from "src/lib/db";
-import { foreignKeyReplacement } from "../utils";
 
 export const userProfiles = () => {
   return db.userProfile.findMany();
@@ -24,13 +23,13 @@ export const myProfile = async () => {
 
 export const createUserProfile = ({ input }) => {
   return db.userProfile.create({
-    data: foreignKeyReplacement(input),
+    data: input,
   });
 };
 
 export const updateUserProfile = ({ id, input }) => {
   return db.userProfile.update({
-    data: foreignKeyReplacement(input),
+    data: input,
     where: { id },
   });
 };

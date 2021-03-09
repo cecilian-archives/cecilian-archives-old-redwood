@@ -1,5 +1,4 @@
 import { db } from "src/lib/db";
-import { foreignKeyReplacement } from "../utils";
 
 export const roles = () => {
   return db.role.findMany();
@@ -28,13 +27,13 @@ export const role = ({ id }) => {
 
 export const createRole = ({ input }) => {
   return db.role.create({
-    data: foreignKeyReplacement(input),
+    data: input,
   });
 };
 
 export const updateRole = ({ id, input }) => {
   return db.role.update({
-    data: foreignKeyReplacement(input),
+    data: input,
     where: { id },
   });
 };

@@ -1,5 +1,4 @@
 import { db } from "src/lib/db";
-import { foreignKeyReplacement } from "../utils";
 
 export const anniversary60Profiles = () => {
   return db.anniversary60Profile.findMany();
@@ -13,13 +12,13 @@ export const anniversary60Profile = ({ id }) => {
 
 export const createAnniversary60Profile = ({ input }) => {
   return db.anniversary60Profile.create({
-    data: foreignKeyReplacement(input),
+    data: input,
   });
 };
 
 export const updateAnniversary60Profile = ({ id, input }) => {
   return db.anniversary60Profile.update({
-    data: foreignKeyReplacement(input),
+    data: input,
     where: { id },
   });
 };
