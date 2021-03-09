@@ -14,7 +14,14 @@ export const searchEvents = ({ needle, skip, take }) => {
         mode: "insensitive",
       },
     },
-    orderBy: [{ name: "asc" }],
+    orderBy: [
+      {
+        inherentYear: {
+          id: "desc",
+        },
+      },
+      { name: "asc" },
+    ],
     skip: skip || undefined,
     take: take || undefined,
   });

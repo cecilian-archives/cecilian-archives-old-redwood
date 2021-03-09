@@ -15,9 +15,14 @@ export const schema = gql`
   }
 
   enum ArchiveFileKind {
+    # Descriptions are for ease of display in dropdown menus etc.
+    "Transcription"
     TRANSCRIPTION
+    "Scan"
     SCAN
+    "Previously Digitised"
     PREVIOUSLY_DIGITISED
+    "Created Digitally"
     CREATED_DIGITALLY
   }
 
