@@ -175,7 +175,6 @@ const ButtonGroup = tw.div`
 `;
 
 const HoldingText = tw.span`
-  font-body
   text-center
   text-white
   text-lg
@@ -188,15 +187,22 @@ const Thanks = tw.div`
   items-center
   space-y-2
 `;
-const ThanksText = tw(HoldingText)`
-  font-title
+const ThanksText = tw.h4`
+  text-center
+  text-white
   text-3xl
 `;
-const ConfirmText = tw(HoldingText)`
+const ConfirmText = tw.p`
+  text-center
+  text-white
   text-xl
   md:text-lg
 `;
-const SpamText = tw(HoldingText)`
+const SpamText = tw.p`
+  text-center
+  text-white
+  text-lg
+  md:text-base
   text-grey-light
 `;
 
@@ -264,7 +270,7 @@ const ErrorText = styled(FieldError)(() => [
 const SaveButton = styled(Submit)(({ disabled }) => [
   tw`mt-2
   relative hover:shadow-lg hover:-top-0.5
-  font-body text-white
+  text-white
   rounded-md shadow-md
   focus:outline-none focus:ring-2 focus:ring-opacity-50
   py-2 px-6 text-lg md:text-base
