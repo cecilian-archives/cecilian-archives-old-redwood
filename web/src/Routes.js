@@ -12,8 +12,8 @@ import { Router, Route, Private } from "@redwoodjs/router";
 const Routes = () => {
   return (
     <Router>
-      <Route path="/" page={HomePage} name="home" prerender />
-      <Route notfound page={NotFoundPage} prerender />
+      <Route path="/" page={HomePage} name="home" />
+      <Route notfound page={NotFoundPage} />
 
       <Private unauthenticated="home">
         <Route path="/auth/key" page={AuthKeyPage} name="authKey" />
