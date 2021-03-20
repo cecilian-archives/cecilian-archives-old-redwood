@@ -24,9 +24,9 @@ import {
   formatRoleForInput,
   roleSelectionSorter,
 } from "./helpers/formatRole";
-import { FaRegUserCircle, FaTicketAlt } from "react-icons/fa";
-import { BiCalendar } from "react-icons/bi";
-import { GiPerson } from "react-icons/gi";
+// import { FaRegUserCircle, FaTicketAlt } from "react-icons/fa";
+// import { BiCalendar } from "react-icons/bi";
+// import { GiPerson } from "react-icons/gi";
 
 const tagTypeMap = {
   cecilian: {
@@ -35,7 +35,7 @@ const tagTypeMap = {
     optionFormatter: formatCecilianAsOption,
     inputFormatter: formatCecilianForInput,
     selectionSorter: cecilianSelectionSorter,
-    fallbackIcon: FaRegUserCircle,
+    // fallbackIcon: FaRegUserCircle,
   },
   year: {
     searchQuery: yearSearchQuery,
@@ -43,7 +43,7 @@ const tagTypeMap = {
     optionFormatter: formatYearAsOption,
     inputFormatter: formatYearForInput,
     selectionSorter: yearSelectionSorter,
-    fallbackIcon: BiCalendar,
+    // fallbackIcon: BiCalendar,
   },
   event: {
     searchQuery: eventSearchQuery,
@@ -52,7 +52,7 @@ const tagTypeMap = {
     tagFormatter: formatEventTagDisplay,
     inputFormatter: formatEventForInput,
     selectionSorter: eventSelectionSorter,
-    fallbackIcon: FaTicketAlt,
+    // fallbackIcon: FaTicketAlt,
   },
   role: {
     searchQuery: roleSearchQuery,
@@ -61,7 +61,7 @@ const tagTypeMap = {
     tagFormatter: formatRoleTagDisplay,
     inputFormatter: formatRoleForInput,
     selectionSorter: roleSelectionSorter,
-    fallbackIcon: GiPerson,
+    // fallbackIcon: GiPerson,
   },
 };
 

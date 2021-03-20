@@ -2,7 +2,7 @@ import { AuthProvider } from "@redwoodjs/auth";
 import { Auth0Client } from "@auth0/auth0-spa-js";
 import { RedwoodApolloProvider } from "@redwoodjs/web/apollo";
 import { FatalErrorBoundary } from "@redwoodjs/web";
-import FatalErrorPage from "src/pages/FatalErrorPage";
+import FatalErrorPage from "src/pages/FatalErrorPage/FatalErrorPage";
 
 import { Provider as ReduxProvider } from "react-redux";
 import { store, persistor } from "./ducks";

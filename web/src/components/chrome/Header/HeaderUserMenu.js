@@ -2,8 +2,8 @@ import { useState, useRef } from "react";
 import { useAuth } from "@redwoodjs/auth";
 import { Link, routes } from "@redwoodjs/router";
 import tw from "twin.macro";
-import { FaRegUserCircle } from "react-icons/fa";
-import { RiLogoutCircleLine } from "react-icons/ri";
+// import { FaRegUserCircle } from "react-icons/fa";
+// import { RiLogoutCircleLine } from "react-icons/ri";
 import useClickOutside from "src/utils/useClickOutside";
 
 const HeaderUserMenu = () => {
@@ -35,12 +35,12 @@ const HeaderUserMenu = () => {
           <PanelHeader>{fullUserName}</PanelHeader>
           <PanelItem onClick={() => setIsOpen(false)}>
             <StyledLink to={routes.myProfileEdit()}>
-              <FaRegUserCircle />
+              {/* <FaRegUserCircle /> */}
               <span>Edit Profile</span>
             </StyledLink>
           </PanelItem>
           <PanelItem onClick={logOut}>
-            <RiLogoutCircleLine />
+            {/* <RiLogoutCircleLine /> */}
             <span>Log Out</span>
           </PanelItem>
         </Panel>
