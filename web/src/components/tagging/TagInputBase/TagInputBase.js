@@ -4,7 +4,7 @@ import Tag from "../Tag/Tag";
 import useClickOutside from "src/utils/useClickOutside";
 import Logo from "src/assets/svg/logo.svg";
 import AnimatedLogo from "src/components/chrome/AnimatedLogo/AnimatedLogo";
-import { IoMdPricetag } from "react-icons/io";
+// import { IoMdPricetag } from "react-icons/io";
 import tagColorMap from "../tagColorMap";
 import tagTypeMap from "../tagTypeMap";
 
@@ -189,7 +189,8 @@ const TagInput = ({
                   }}
                 >
                   <OptionIcon
-                    Fallback={onCreate ? IoMdPricetag : fallbackIcon}
+                    // Fallback={onCreate ? IoMdPricetag : fallbackIcon}
+                    Fallback={fallbackIcon}
                     tagType={onCreate ? null : tagType}
                   />
                   {onCreate ? `Create a tag for ${inputValue}` : "No results"}

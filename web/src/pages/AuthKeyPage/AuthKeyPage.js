@@ -2,7 +2,7 @@ import { Redirect, routes } from "@redwoodjs/router";
 import { useAuth } from "@redwoodjs/auth";
 import tw from "twin.macro";
 import PageLayout from "src/layouts/PageLayout/PageLayout";
-import { ImKey } from "react-icons/im";
+// import { ImKey } from "react-icons/im";
 import { useMutation } from "@redwoodjs/web";
 import { useState } from "react";
 import LoadingScreen from "src/components/chrome/LoadingScreen/LoadingScreen";
@@ -63,7 +63,7 @@ const AuthKeyPage = () => {
           <input
             type="text"
             name="key"
-            icon={<ImKey />}
+            // icon={<ImKey />}
             autoComplete="off"
             value={enteredKey}
             onChange={(e) => setEnteredKey(e.target.value)}
