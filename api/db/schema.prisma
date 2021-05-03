@@ -22,7 +22,6 @@ generator client {
 ///
 // ---------------------------------------------------------
 
-
 // ---------------------------------------------------------
 //
 //  USERS AND PROFILES
@@ -30,35 +29,39 @@ generator client {
 // ---------------------------------------------------------
 
 model User {
-  id                   Int        @id @default(autoincrement())
-  subject              String     @unique // The user's identifier in Auth0
-  slug                 String     @unique // An in-app identifier e.g. for URLs
-  profile              UserProfile? @relation("ProfileOwner")
-  verifiedByKey        AccessKey  @relation("AccessKeyUser", fields: [verifiedByKeyId], references: [id])
-  verifiedByKeyId      Int
-  roles                UserRole[]
-  createdAt            DateTime   @default(now())
-  updatedAt            DateTime   @updatedAt
-  deletedAt            DateTime?
-  archiveItemsCreated  ArchiveItem[]       @relation("ItemCreatedBy")
-  collectionsOwned     ArchiveCollection[] @relation("CollectionOwner")
-  collectionsCreated   ArchiveCollection[] @relation("CollectionCreatedBy")
+  id                  Int                 @id @default(autoincrement())
+  subject             String              @unique // The user's identifier in Auth0
+  slug                String              @unique // An in-app identifier e.g. for URLs
+  profile             UserProfile?        @relation("ProfileOwner")
+  verifiedByKey       AccessKey           @relation("AccessKeyUser", fields: [verifiedByKeyId], references: [id])
+  verifiedByKeyId     Int
+  roles               UserRole[]
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+  deletedAt           DateTime?
+  archiveItemsCreated ArchiveItem[]       @relation("ItemCreatedBy")
+  collectionsOwned    ArchiveCollection[] @relation("CollectionOwner")
+  collectionsCreated  ArchiveCollection[] @relation("CollectionCreatedBy")
+  ArchiveItem         ArchiveItem[]       @relation("ItemUpdatedBy")
+  ArchiveFile         ArchiveFile[]       @relation("FileDeletedBy")
+  ArchiveCollection   ArchiveCollection[] @relation("CollectionUpdatedBy")
+  CollectionItem      CollectionItem[]    @relation("CollectionItemAddedBy")
 }
 
 model UserRole {
-  id           Int       @id @default(autoincrement())
-  roleName     String    @unique
-  accessLevel  Int
-  users        User[]
+  id          Int    @id @default(autoincrement())
+  roleName    String @unique
+  accessLevel Int
+  users       User[]
 }
 
 model UserProfile {
-  id             Int        @id @default(autoincrement())
-  user           User       @relation("ProfileOwner", fields: [userId], references: [id])
+  id             Int                   @id @default(autoincrement())
+  user           User                  @relation("ProfileOwner", fields: [userId], references: [id])
   userId         Int
-  cecilian       Cecilian?  @relation("ProfileCecilian", fields: [cecilianId], references: [id])
+  cecilian       Cecilian?             @relation("ProfileCecilian", fields: [cecilianId], references: [id])
   cecilianId     Int?
-  accessKeys     AccessKey[] @relation("AccessKeyOwner")
+  accessKeys     AccessKey[]           @relation("AccessKeyOwner")
   title          String?
   firstNames     String?
   lastNames      String?
@@ -66,29 +69,31 @@ model UserProfile {
   picture        String?
   contactDetails UserContact[]
   anniversary60  Anniversary60Profile? @relation("Profile60th")
-  visibility     Visibility @default(VISIBLE)
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  visibility     Visibility            @default(VISIBLE)
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
   deletedAt      DateTime?
 }
+
 enum Visibility {
   VISIBLE
   HIDDEN
 }
 
 model UserContact {
-  id            Int          @id @default(autoincrement())
-  userProfile   UserProfile  @relation(fields: [userProfileId], references: [id])
+  id            Int             @id @default(autoincrement())
+  userProfile   UserProfile     @relation(fields: [userProfileId], references: [id])
   userProfileId Int
   type          UserContactType
   customType    String?
   value         String
   notes         String?
-  visibility    Visibility   @default(VISIBLE)
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  visibility    Visibility      @default(VISIBLE)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
   deletedAt     DateTime?
 }
+
 enum UserContactType {
   ADDRESS
   EMAIL
@@ -114,16 +119,15 @@ model Anniversary60Profile {
 }
 
 model AccessKey {
-  id         Int          @id @default(autoincrement())
-  key        String       @unique
-  owner      UserProfile? @relation("AccessKeyOwner", fields: [ownerId], references: [id])
-  ownerId    Int?
-  usedBy     User[]       @relation("AccessKeyUser")
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  removedAt  DateTime?
+  id        Int          @id @default(autoincrement())
+  key       String       @unique
+  owner     UserProfile? @relation("AccessKeyOwner", fields: [ownerId], references: [id])
+  ownerId   Int?
+  usedBy    User[]       @relation("AccessKeyUser")
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  removedAt DateTime?
 }
-
 
 // ---------------------------------------------------------
 //
@@ -132,69 +136,71 @@ model AccessKey {
 // ---------------------------------------------------------
 
 model Cecilian {
-  id         Int     @id @default(autoincrement())
-  slug       String  @unique
-  displayName String
-  otherNames String?
-  user       UserProfile? @relation("ProfileCecilian")
-  tags       CecilianTag[] /// Years, Events, Roles
-  inArchiveItems ArchiveItemCecilian[]
-  authoredArchiveItems ArchiveItem[] @relation("ItemAuthor")
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  deletedAt  DateTime?
+  id                   Int                   @id @default(autoincrement())
+  slug                 String                @unique
+  displayName          String
+  otherNames           String?
+  user                 UserProfile?          @relation("ProfileCecilian")
+  tags                 CecilianTag[] /// Years, Events, Roles
+  inArchiveItems       ArchiveItemCecilian[]
+  authoredArchiveItems ArchiveItem[]         @relation("ItemAuthor")
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  deletedAt            DateTime?
 }
 
 model ArchiveItemCecilian {
-  id         Int     @id @default(autoincrement())
-  cecilian   Cecilian? @relation(fields: [cecilianId], references: [id])
+  id         Int          @id @default(autoincrement())
+  cecilian   Cecilian?    @relation(fields: [cecilianId], references: [id])
   cecilianId Int?
   item       ArchiveItem? @relation(fields: [itemId], references: [id])
   itemId     Int?
-  addedAt    DateTime @default(now())
+  addedAt    DateTime     @default(now())
   removedAt  DateTime?
 }
 
 model ArchiveItem {
-  id              Int     @id @default(autoincrement())
-  slug            String  @unique
-  archiveRef      String
-  type            ArchiveItemType
-  associatedDate  DateTime?
-  collections     CollectionItem[]
-  notes           String?
-  author          Cecilian? @relation("ItemAuthor", fields: [authorId], references: [id])
-  authorId        Int?
-  tags            ArchiveItemTag[] /// Years, Events, Roles
-  cecilians       ArchiveItemCecilian[]
-  files           ArchiveItemFile[]
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  deletedAt       DateTime?
-  createdBy       User? @relation("ItemCreatedBy", fields: [createdById], references: [id])
-  createdById     Int?
-  updatedBy       User? @relation("ItemUpdatedBy", fields: [updatedById], references: [id])
-  updatedById     Int?
+  id             Int                   @id @default(autoincrement())
+  slug           String                @unique
+  archiveRef     String
+  type           ArchiveItemType
+  associatedDate DateTime?
+  collections    CollectionItem[]
+  notes          String?
+  author         Cecilian?             @relation("ItemAuthor", fields: [authorId], references: [id])
+  authorId       Int?
+  tags           ArchiveItemTag[] /// Years, Events, Roles
+  cecilians      ArchiveItemCecilian[]
+  files          ArchiveItemFile[]
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+  deletedAt      DateTime?
+  createdBy      User?                 @relation("ItemCreatedBy", fields: [createdById], references: [id])
+  createdById    Int?
+  updatedBy      User?                 @relation("ItemUpdatedBy", fields: [updatedById], references: [id])
+  updatedById    Int?
 }
+
 enum ArchiveItemType {
   MINUTES
   PHOTOS
 }
 
 model ArchiveFile {
-  id          Int     @id @default(autoincrement())
-  slug        String  @unique
+  id          Int               @id @default(autoincrement())
+  slug        String            @unique
   kind        ArchiveFileKind
   name        String
   notes       String?
   url         String
   items       ArchiveItemFile[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
   deletedAt   DateTime?
-  deletedBy   User? @relation("FileDeletedBy", fields: [deletedById], references: [id])
+  deletedBy   User?             @relation("FileDeletedBy", fields: [deletedById], references: [id])
   deletedById Int?
 }
+
 enum ArchiveFileKind {
   TRANSCRIPTION
   SCAN
@@ -203,15 +209,14 @@ enum ArchiveFileKind {
 }
 
 model ArchiveItemFile {
-  id         Int     @id @default(autoincrement())
-  file       ArchiveFile? @relation(fields: [fileId], references: [id])
-  fileId     Int?
-  item       ArchiveItem? @relation(fields: [itemId], references: [id])
-  itemId     Int?
-  addedAt    DateTime @default(now())
-  removedAt  DateTime?
+  id        Int          @id @default(autoincrement())
+  file      ArchiveFile? @relation(fields: [fileId], references: [id])
+  fileId    Int?
+  item      ArchiveItem? @relation(fields: [itemId], references: [id])
+  itemId    Int?
+  addedAt   DateTime     @default(now())
+  removedAt DateTime?
 }
-
 
 // ---------------------------------------------------------
 //
@@ -220,71 +225,74 @@ model ArchiveItemFile {
 // ---------------------------------------------------------
 
 model Year {
-  id         Int     @id @default(autoincrement())
-  slug       String  @unique /// e.g. 2010-2011
-  name       String
-  startDate  DateTime?
-  endDate    DateTime?
-  events     Event[] /// Backlinks
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  deletedAt  DateTime?
-  inTags     Tag[]
+  id        Int       @id @default(autoincrement())
+  slug      String    @unique /// e.g. 2010-2011
+  name      String
+  startDate DateTime?
+  endDate   DateTime?
+  events    Event[] /// Backlinks
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  inTags    Tag[]
 }
 
 model Event {
-  id             Int      @id @default(autoincrement())
+  id             Int       @id @default(autoincrement())
   type           EventType
   name           String
-  inherentYear   Year?    @relation(fields: [inherentYearId], references: [id])
+  inherentYear   Year?     @relation(fields: [inherentYearId], references: [id])
   inherentYearId Int?
   roles          Role[] /// Backlinks
   startDate      DateTime?
   endDate        DateTime?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
   deletedAt      DateTime?
   inTags         Tag[]
 }
+
 enum EventType {
-  SHOW          /// Has inherent year
-  ANNIVERSARY   /// Has inherent year
-  EVENT         /// DOES NOT have inherent year
+  SHOW /// Has inherent year
+  ANNIVERSARY /// Has inherent year
+  EVENT /// DOES NOT have inherent year
 }
 
 model Role {
-  id              Int      @id @default(autoincrement())
+  id              Int       @id @default(autoincrement())
   type            RoleType
   name            String
-  inherentEvent   Event?   @relation(fields: [inherentEventId], references: [id])
+  inherentEvent   Event?    @relation(fields: [inherentEventId], references: [id])
   inherentEventId Int?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
   deletedAt       DateTime?
   inTags          Tag[]
 }
+
 enum RoleType {
-  SOCIETY       /// DOES NOT have inherent event
-  COMMITTEE     /// DOES NOT have inherent event
-  PRODUCTION    /// DOES NOT have inherent event
-  PERFORMANCE   /// Has inherent event (probably a show)
+  SOCIETY /// DOES NOT have inherent event
+  COMMITTEE /// DOES NOT have inherent event
+  PRODUCTION /// DOES NOT have inherent event
+  PERFORMANCE /// Has inherent event (probably a show)
 }
 
 model Tag {
-  id            Int      @id @default(autoincrement())
-  type          TagType
-  role          Role?    @relation(fields: [roleId], references: [id])
-  roleId        Int?
-  event         Event?   @relation(fields: [eventId], references: [id])
-  eventId       Int?
-  year          Year?    @relation(fields: [yearId], references: [id])
-  yearId        Int?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  deletedAt     DateTime?
-  cecilians     CecilianTag[]
-  archiveItems  ArchiveItemTag[]
+  id           Int              @id @default(autoincrement())
+  type         TagType
+  role         Role?            @relation(fields: [roleId], references: [id])
+  roleId       Int?
+  event        Event?           @relation(fields: [eventId], references: [id])
+  eventId      Int?
+  year         Year?            @relation(fields: [yearId], references: [id])
+  yearId       Int?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  deletedAt    DateTime?
+  cecilians    CecilianTag[]
+  archiveItems ArchiveItemTag[]
 }
+
 enum TagType {
   YEAR
   EVENT
@@ -292,25 +300,24 @@ enum TagType {
 }
 
 model CecilianTag {
-  id          Int      @id @default(autoincrement())
-  cecilian    Cecilian @relation(fields: [cecilianId], references: [id])
-  cecilianId  Int
-  tag         Tag      @relation(fields: [tagId], references: [id])
-  tagId       Int
-  addedAt     DateTime @default(now())
-  removedAt   DateTime?
-}
-
-model ArchiveItemTag {
-  id         Int         @id @default(autoincrement())
-  item       ArchiveItem @relation(fields: [itemId], references: [id])
-  itemId     Int
-  tag        Tag         @relation(fields: [tagId], references: [id])
+  id         Int       @id @default(autoincrement())
+  cecilian   Cecilian  @relation(fields: [cecilianId], references: [id])
+  cecilianId Int
+  tag        Tag       @relation(fields: [tagId], references: [id])
   tagId      Int
-  addedAt    DateTime    @default(now())
+  addedAt    DateTime  @default(now())
   removedAt  DateTime?
 }
 
+model ArchiveItemTag {
+  id        Int         @id @default(autoincrement())
+  item      ArchiveItem @relation(fields: [itemId], references: [id])
+  itemId    Int
+  tag       Tag         @relation(fields: [tagId], references: [id])
+  tagId     Int
+  addedAt   DateTime    @default(now())
+  removedAt DateTime?
+}
 
 // ---------------------------------------------------------
 //
@@ -319,49 +326,52 @@ model ArchiveItemTag {
 // ---------------------------------------------------------
 
 model ArchiveCollection {
-  id          Int     @id @default(autoincrement())
-  slug        String  @unique
-  type        ArchiveCollectionType
-  name        String
-  description String?
+  id               Int                        @id @default(autoincrement())
+  slug             String                     @unique
+  type             ArchiveCollectionType
+  name             String
+  description      String?
   physicalLocation String? /// only relevant for type: PHYSICAL
-  owner       User? @relation("CollectionOwner", fields: [ownerId], references: [id])
-  ownerId     Int?
-  viewPerms   ArchiveCollectionViewPerms @default(PUBLIC)
-  editPerms   ArchiveCollectionEditPerms @default(OPEN)
-  items       CollectionItem[]
-  createdAt   DateTime @default(now())
-  createdBy   User @relation("CollectionCreatedBy", fields: [createdById], references: [id])
-  createdById Int
-  updatedAt   DateTime @updatedAt
-  updatedBy   User? @relation("CollectionUpdatedBy", fields: [updatedById], references: [id])
-  updatedById Int?
-  deletedAt   DateTime?
+  owner            User?                      @relation("CollectionOwner", fields: [ownerId], references: [id])
+  ownerId          Int?
+  viewPerms        ArchiveCollectionViewPerms @default(PUBLIC)
+  editPerms        ArchiveCollectionEditPerms @default(OPEN)
+  items            CollectionItem[]
+  createdAt        DateTime                   @default(now())
+  createdBy        User                       @relation("CollectionCreatedBy", fields: [createdById], references: [id])
+  createdById      Int
+  updatedAt        DateTime                   @updatedAt
+  updatedBy        User?                      @relation("CollectionUpdatedBy", fields: [updatedById], references: [id])
+  updatedById      Int?
+  deletedAt        DateTime?
 }
+
 enum ArchiveCollectionType {
   PHYSICAL
   SYSTEM
   USER
 }
+
 enum ArchiveCollectionViewPerms {
   PUBLIC
   PRIVATE
 }
+
 enum ArchiveCollectionEditPerms {
   OPEN
   CLOSED
 }
 
 model CollectionItem {
-  id           Int     @id @default(autoincrement())
-  item         ArchiveItem     @relation(fields: [itemId], references: [id])
+  id           Int               @id @default(autoincrement())
+  item         ArchiveItem       @relation(fields: [itemId], references: [id])
   itemId       Int
   collection   ArchiveCollection @relation(fields: [collectionId], references: [id])
   collectionId Int
   itemIndex    String? /// e.g. P1, the index of this item in collection A1
-  addedBy      User? @relation("CollectionItemAddedBy", fields: [addedById], references: [id])
+  addedBy      User?             @relation("CollectionItemAddedBy", fields: [addedById], references: [id])
   addedById    Int?
-  addedAt      DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  addedAt      DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
   removedAt    DateTime?
 }
