@@ -7,7 +7,6 @@
 
 [web]
   port = 8910
-  experimentalFastRefresh = true
   apiProxyPath = "/.netlify/functions"
   includeEnvironmentVariables = ["AUTH0_DOMAIN", "AUTH0_CLIENT_ID", "AUTH0_REDIRECT_URI", "AUTH0_AUDIENCE"]
 [api]
@@ -15,3 +14,5 @@
   schemaPath = "./api/db/schema.prisma"
 [browser]
   open = true
+[experimental]
+  esbuild = true

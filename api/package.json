@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@redwoodjs/api": "0.31.2",
-    "@redwoodjs/api-server": "0.31.2",
+    "@redwoodjs/api": "^0.33.3",
+    "@redwoodjs/api-server": "^0.33.3",
     "analytics-node": "^3.4.0-beta.3",
     "mailgun-js": "^0.22.0"
   },
